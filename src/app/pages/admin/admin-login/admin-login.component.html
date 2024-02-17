@@ -1,0 +1,60 @@
+<div
+  class="container d-flex justify-content-center align-items-center vh-100 flex-column"
+>
+  <h2>Welcome To Admin Panel</h2>
+
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="handleFormSubmit()"
+    class="border border-2 p-5 rounded-3"
+  >
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        aria-describedby="usernameHelp"
+        formControlName="username"
+      />
+      <div id="username" class="form-text text-danger">
+        @if (loginForm.controls['username'].invalid &&
+        loginForm.controls['username'].touched)
+         { @if(loginForm.controls['username'].errors?.['required']) {
+        <small>This field is required</small>
+        } @if (loginForm.value.username.includes(' ')) {
+        <small>The username shouldn't contain space</small>
+        } }
+      </div>
+
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input
+        type="password"
+        aria-describedby="passwordHelp"
+        class="form-control"
+        id="exampleInputPassword1"
+        formControlName="password"
+      />
+      <div id="password" class="form-text text-danger">
+        @if (loginForm.controls['password'].invalid && loginForm.controls['password'].touched) 
+        { @if(loginForm.controls['password'].errors?.['required'] &&!loginForm.get('password')?.value) {
+        <small>This field is required</small>
+        } @if (loginForm.controls['password'].hasError('passwordRequirements')&& loginForm.get('password')?.value) {
+        <small
+          >Password must includes : <br>
+          -At least 8 characters <br>
+          -one lowercase letter  <br>
+          -one uppercase letter <br>
+          -one number  <br>
+          -one special character </small
+        >
+        } }
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center mb-3">
+      <button type="submit" class="btn">Login</button>
+    </div>
+  
+  </form>
+</div>
