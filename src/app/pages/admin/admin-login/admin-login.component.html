@@ -18,13 +18,25 @@
         formControlName="username"
       />
       <div id="username" class="form-text text-danger">
-        @if (loginForm.controls['username'].invalid &&
-        loginForm.controls['username'].touched)
-         { @if(loginForm.controls['username'].errors?.['required']) {
+        @if (loginForm.controls['username'].invalid && loginForm.controls['username'].touched)
+         { 
+          @if(loginForm.controls['username'].errors?.['required']) 
+          {
         <small>This field is required</small>
-        } @if (loginForm.value.username.includes(' ')) {
-        <small>The username shouldn't contain space</small>
-        } }
+          } @if (loginForm.controls['username'].errors?.['pattern']) 
+          {
+        <small>The username should contains letters and numbers only</small>
+          }
+          @if (loginForm.controls['username'].errors?.['minlength']) 
+          {
+        <small>Minimum 3 characters</small>
+          }
+          @if (loginForm.controls['username'].errors?.['maxlength']) 
+          {
+        <small>Maximum 20 characters</small>
+          }
+
+        }
       </div>
 
       <label for="exampleInputPassword1" class="form-label">Password</label>
@@ -37,16 +49,22 @@
       />
       <div id="password" class="form-text text-danger">
         @if (loginForm.controls['password'].invalid && loginForm.controls['password'].touched) 
-        { @if(loginForm.controls['password'].errors?.['required'] &&!loginForm.get('password')?.value) {
+        { @if(loginForm.controls['password'].errors?.['required']) {
         <small>This field is required</small>
         } @if (loginForm.controls['password'].hasError('passwordRequirements')&& loginForm.get('password')?.value) {
         <small
-          >Password must includes : <br>
-          -At least 8 characters <br>
-          -one lowercase letter  <br>
-          -one uppercase letter <br>
-          -one number  <br>
-          -one special character </small
+          >Password needs to : <br>
+          @if (!containsLowerAndUpper)
+          {
+            -Include both lower and upper case characters <br>          }
+          @if (!containsDigitAndSpecialChar)
+          {
+            -Include at least one number and sympol <br>
+          }         
+          @if (!isLengthValid)
+          {
+            - Be at least 8 characters long
+          } </small
         >
         } }
       </div>

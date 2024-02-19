@@ -13,50 +13,49 @@ import { catchError, of, tap } from 'rxjs';
 })
 export class AdminLoginComponent {
   loginForm : FormGroup
+  
+  isLengthValid!: boolean;
+  containsLowerAndUpper! : boolean
+  containsDigitAndSpecialChar!: boolean
 
-  constructor(private fb : FormBuilder,private http : HttpClient){
+  constructor(private fb : FormBuilder){
     this.loginForm=this.fb.group({
-      username:['',[Validators.required,Validators.pattern("^\S+$")]],
+      username:['',[Validators.required,Validators.minLength(3),Validators.maxLength(20),Validators.pattern(/^[a-zA-Z0-9]*$/)]],
       password:['',[Validators.required,this.passwordValidator()]],
     })
     }
     
     handleFormSubmit(){
       console.log(this.loginForm)
-      if (this.loginForm.valid) {
-        const formData = this.loginForm.value;
+    //   if (this.loginForm.valid) {
+    //     const formData = this.loginForm.value;
   
-        this.http.post('https://ourbackend.com/users', formData)
-        .pipe(
-          tap(response => {
-            console.log(response);
-          }),
-          catchError(error => {
-            console.error(error);
-            return of(null); 
-          }),
-        )
-        .subscribe();
-    }
+    //     this.http.post('https://ourbackend.com/users', formData)
+    //     .pipe(
+    //       tap(response => {
+    //         console.log(response);
+    //       }),
+    //       catchError(error => {
+    //         console.error(error);
+    //         return of(null); 
+    //       }),
+    //     )
+    //     .subscribe();
+    // }
     }
 
-  passwordValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: boolean } | null => {
-      const password = control.value;
-      const isLengthValid = password.length >= 8;
-      const containsLowerCase = /[a-z]/.test(password);
-      const containsUpperCase = /[A-Z]/.test(password);
-      const containsDigit = /\d/.test(password);
-      const containsSpecialChar =/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(password);
-      const isValid =
-        isLengthValid &&
-        containsLowerCase &&
-        containsUpperCase &&
-        containsDigit &&
-        containsSpecialChar;
-      return isValid ? null : { 'passwordRequirements': true };
-    };
-  }
+    passwordValidator(): ValidatorFn {
+      return (control: AbstractControl): { [key: string]: boolean } | null => {
+        const password = control.value;
+         this.isLengthValid = password.length >= 8;
+         this.containsLowerAndUpper = /^(?=.*[a-z])(?=.*[A-Z])/.test(password);
+        this.containsDigitAndSpecialChar = /^(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])/.test(password);
+    
+        const isValid = this.isLengthValid && this.containsLowerAndUpper && this.containsDigitAndSpecialChar;
+        return isValid ? null : { 'passwordRequirements': true };
+      };
+    }
+    
 
 }
 
