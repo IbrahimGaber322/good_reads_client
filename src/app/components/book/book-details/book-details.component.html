@@ -1,0 +1,25 @@
+<section class="dark">
+	<div class="container py-4">
+<section class="light">
+	<div class="container py-2 mt-5">
+		<article class="postcard light green">
+			
+				<img class="postcard__img" src="https://picsum.photos/500/501" alt="Image Title" />
+               
+                  
+			<div class="postcard__text t-dark">
+				<h1 class="postcard__title green">{{bookDetails.name}}</h1>
+				<div class="postcard__bar"></div>
+                <div class="postcard__txt">{{bookDetails.description}}</div>
+                <p class="postcard__author">By: <a [routerLink]="['/authors', bookDetails.authorId]">{{bookDetails.authorId}}</a></p>
+                <p class="postcard__category"><a [routerLink]="['/categories', bookDetails.categoryId]">{{bookDetails.categoryId}}</a></p>
+                <select class="selectpicker">
+                    <option>Want To Read</option>
+                    <option>Currently Reading</option>
+                    <option>Read</option>
+                  </select>
+            </div>
+		</article>
+		
+	</div>
+</section>
