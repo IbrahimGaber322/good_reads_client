@@ -18,10 +18,12 @@ export class HomeComponent {
     private tokenService: TokenService
   ) {}
   ngOnInit() {
-    const token = this.tokenService.getToken();
-    this.userService.getUser(token).subscribe((data) => (this.user = data));
+    if (typeof localStorage !== 'undefined') {
+      const token = this.tokenService.getToken();
+      console.log(token);
+      this.userService.getUser(token).subscribe((data) => (this.user = data));
+    }
   }
-
   logUser() {
     console.log(this.user);
   }
