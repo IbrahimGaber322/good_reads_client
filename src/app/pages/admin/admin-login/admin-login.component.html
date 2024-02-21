@@ -9,29 +9,29 @@
     class="border border-2 p-5 rounded-3"
   >
     <div class="mb-3">
-      <label for="username" class="form-label">Username</label>
+      <label for="email" class="form-label">email</label>
       <input
         type="text"
         class="form-control"
-        id="username"
-        aria-describedby="usernameHelp"
-        formControlName="username"
+        id="email"
+        aria-describedby="emailHelp"
+        formControlName="email"
       />
-      <div id="username" class="form-text text-danger">
-        @if (loginForm.controls['username'].invalid && loginForm.controls['username'].touched)
+      <div id="email" class="form-text text-danger">
+        @if (loginForm.controls['email'].invalid && loginForm.controls['email'].touched)
          { 
-          @if(loginForm.controls['username'].errors?.['required']) 
+          @if(loginForm.controls['email'].errors?.['required']) 
           {
         <small>This field is required</small>
-          } @if (loginForm.controls['username'].errors?.['pattern']) 
+          } @if (loginForm.controls['email'].errors?.['pattern']) 
           {
-        <small>The username should contains letters and numbers only</small>
+        <small>The email should contains letters and numbers only</small>
           }
-          @if (loginForm.controls['username'].errors?.['minlength']) 
+          @if (loginForm.controls['email'].errors?.['minlength']) 
           {
         <small>Minimum 3 characters</small>
           }
-          @if (loginForm.controls['username'].errors?.['maxlength']) 
+          @if (loginForm.controls['email'].errors?.['maxlength']) 
           {
         <small>Maximum 20 characters</small>
           }

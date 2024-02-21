@@ -5,7 +5,7 @@ import { CategoryListComponent } from './pages/admin/category-list/category-list
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule,CategoryListComponent],
+  imports: [RouterOutlet, HttpClientModule, CategoryListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
