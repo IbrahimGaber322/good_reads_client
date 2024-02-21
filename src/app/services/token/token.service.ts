@@ -1,22 +1,32 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenService {
-  private apiUrl = 'https://ourbackend.com/users';
-  token: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
-  constructor(private http: HttpClient) { 
-    this.token.next(localStorage.getItem("user"));
-  }
-  logIn(){
-    let newToken = null;
-    this.http.get<string>(`${this.apiUrl}/login`).subscribe(d=>newToken=d);
-    if(newToken){
-      this.token.next(newToken);
-      localStorage.setItem("user",newToken);
+  private readonly TOKEN_KEY = 'auth_token';
+  private authToken: string | null = null;
+  constructor() {
+    if (typeof localStorage !== 'undefined') {
+      this.authToken = localStorage.getItem(this.TOKEN_KEY);
     }
+  }
+
+  setToken(token: string): void {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(this.TOKEN_KEY, token);
+    }
+    this.authToken = token;
+  }
+
+  getToken = (): string | null => {
+    return this.authToken;
+  };
+
+  clearToken(): void {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem(this.TOKEN_KEY);
+    }
+    this.authToken = null;
   }
 }

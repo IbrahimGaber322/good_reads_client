@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { catchError, of, tap } from 'rxjs';
+import { AuthService } from '../../../services/auth/auth.service';
+import { TokenService } from '../../../services/token/token.service';
+
 
 @Component({
   selector: 'app-admin-login',
@@ -18,30 +19,22 @@ export class AdminLoginComponent {
   containsLowerAndUpper! : boolean
   containsDigitAndSpecialChar!: boolean
 
-  constructor(private fb : FormBuilder){
+  constructor(private fb : FormBuilder, private authService:AuthService, private tokenService:TokenService){
     this.loginForm=this.fb.group({
-      username:['',[Validators.required,Validators.minLength(3),Validators.maxLength(20),Validators.pattern(/^[a-zA-Z0-9]*$/)]],
-      password:['',[Validators.required,this.passwordValidator()]],
+      email:['',[Validators.required]],
+      password:['',[Validators.required]],
     })
     }
     
     handleFormSubmit(){
-      console.log(this.loginForm)
-    //   if (this.loginForm.valid) {
-    //     const formData = this.loginForm.value;
-  
-    //     this.http.post('https://ourbackend.com/users', formData)
-    //     .pipe(
-    //       tap(response => {
-    //         console.log(response);
-    //       }),
-    //       catchError(error => {
-    //         console.error(error);
-    //         return of(null); 
-    //       }),
-    //     )
-    //     .subscribe();
-    // }
+      if(this.loginForm.valid){
+        console.log(this.loginForm.value)
+        this.authService.login(this.loginForm.value).subscribe(data=>{
+          if(data.token){
+            this.tokenService.setToken(data.token);
+          }
+        })
+      }
     }
 
     passwordValidator(): ValidatorFn {
