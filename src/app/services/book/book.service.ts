@@ -10,4 +10,7 @@ export class BookService {
 getBooks(){
   return this.http.get('http://localhost:5000/books/')
 }
+getBookDetails(id:string){
+  return this.http.get(`http://localhost:5000/books/${id}`)
+}
 }

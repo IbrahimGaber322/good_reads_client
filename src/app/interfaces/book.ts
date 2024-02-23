@@ -1,3 +1,6 @@
+import Author from "./author";
+import { Category } from "./category";
+
 export interface Book {
   _id: string;
   name: string;

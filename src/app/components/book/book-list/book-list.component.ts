@@ -13,7 +13,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
   styleUrl: './book-list.component.css'
 })
 export class BookListComponent {
-books!:Book[]
+books!:any[]
 
   constructor(private bookService:BookService){}
 

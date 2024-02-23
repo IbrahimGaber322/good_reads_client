@@ -11,8 +11,8 @@
 				 <h1 class="postcard__title green">{{bookDetails.name}}</h1>
 				 <div class="postcard__bar"></div>
                 <div class="postcard__txt">{{bookDetails.description}}</div>
-                <p class="postcard__author">By: <a [routerLink]="['/authors', bookDetails.authorId]">{{bookDetails.authorId}}</a></p>
-                <p class="postcard__category"><a [routerLink]="['/categories', bookDetails.categoryId]">{{bookDetails.categoryId}}</a></p>
+                <p class="postcard__author">By: <a [routerLink]="['/authors', bookDetails.author._id]">{{bookDetails.author.firstName}} {{bookDetails.author.lastName}}</a></p>
+                <p class="postcard__category"><a [routerLink]="['/categories', bookDetails.category._id]">{{bookDetails.category.name}}</a></p>
                 <select class="selectpicker">
                     <option>Want To Read</option>
                     <option>Currently Reading</option>
