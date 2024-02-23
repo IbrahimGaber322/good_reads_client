@@ -13,7 +13,7 @@ export class BookCardComponent {
 @Input() mybook!:Book
 constructor(private router : Router){}
 
-redirctToDetails(id:number){
+redirctToDetails(id:string){
   this.router.navigate(['books',id])
 
 }

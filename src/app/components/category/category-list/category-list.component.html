@@ -1,10 +1,13 @@
-<div class="container mt-5">
-    <h1 class="text-center">Categories</h1>
-    <hr/>  
-    <div class="d-flex justify-content-center flex-wrap g-5">
-      <div class="card" *ngFor="let category of categories">
-        <app-category-card [mycategory]="category"></app-category-card>
-      </div>
+<div class="container d-flex align-items-center mt-5">
+  <div class="text-center w-100">
+    <h1>Categories</h1>
+    <hr />
+    <div class="row justify-content-center">
+        @for (category of categories; track category.id) {
+            <div class="col-md-3">
+                <app-category-card [mycategory]="category"></app-category-card>
+            </div>
+        }
     </div>
   </div>
-  
+</div>

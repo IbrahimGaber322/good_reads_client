@@ -5,6 +5,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { BookListComponent } from './components/book/book-list/book-list.component';
 import { BookDetailsComponent } from './components/book/book-details/book-details.component';
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
+import { ReviewsComponent } from './components/book/reviews/reviews.component';
 
 export const routes: Routes = [
 
@@ -34,6 +35,12 @@ export const routes: Routes = [
         path:"categories",
         component:CategoryListComponent,
         title:"Categories",
+      
+    },
+    {
+        path:"review",
+        component:ReviewsComponent,
+        title:"reviews",
       
     },
       {
