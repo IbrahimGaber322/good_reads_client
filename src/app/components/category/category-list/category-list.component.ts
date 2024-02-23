@@ -2,6 +2,7 @@ import { CategoryCardComponent } from './../category-card/category-card.componen
 import { CategoryService } from './../../../services/category/category.service';
 import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
+import { Category } from '../../../interfaces/category';
 
 @Component({
   selector: 'app-category-list',
@@ -11,7 +12,7 @@ import { NgFor } from '@angular/common';
   styleUrl: './category-list.component.css'
 })
 export class CategoryListComponent {
-categories:any
+  categories!:Category[]
 
 constructor(private CategoryService:CategoryService){}
 

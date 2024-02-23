@@ -3,7 +3,7 @@
     <h1>Categories</h1>
     <hr />
     <div class="row justify-content-center">
-        @for (category of categories; track category.id) {
+        @for (category of categories; track category._id) {
             <div class="col-md-3">
                 <app-category-card [mycategory]="category"></app-category-card>
             </div>

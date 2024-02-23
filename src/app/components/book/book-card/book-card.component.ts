@@ -10,11 +10,11 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './book-card.component.css'
 })
 export class BookCardComponent {
-@Input() mybook!:Book
+@Input() mybook!:any
 constructor(private router : Router){}
 
 redirctToDetails(id:string){
   this.router.navigate(['books',id])
+  }
 
-}
 }
