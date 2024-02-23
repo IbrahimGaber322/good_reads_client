@@ -1,14 +1,21 @@
 export interface Book {
-  _id:string;
+  _id: string;
   name: string;
   author: string;
   category: string;
-  rating: number;
-  description?: string;
+  rating: Rating[];
+  description: string;
   status: 'Want to read' | 'Read' | 'Currently Reading';
   image?: string;
-  reviews?: string[];
-  clicks: number;
+  reviews: Review[];
+  clicks?: number;
+}
+export interface Rating {
+  rating: number;
+  userId: string; 
 }
 
-export default Book;
+interface Review {
+  username: string;
+  comment: string;
+}
