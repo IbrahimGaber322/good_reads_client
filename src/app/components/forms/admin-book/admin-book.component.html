@@ -45,7 +45,11 @@
       class="text-danger">
       Please select an image
     </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="d-flex gap-5">
+      <button type="submit" class="btn btn-primary">Submit</button>
+         <button type="button" (click)="setCreate(false)" class="btn btn-danger">Cancel
+        <i class="fa-solid fa-xmark"></i></button>
+    </div>
+   
   </form>
 </div>

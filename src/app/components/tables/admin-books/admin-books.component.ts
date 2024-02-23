@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import Book from '../../../interfaces/book';
+import { Book } from '../../../interfaces/book';
 
 @Component({
   selector: 'app-admin-books',
@@ -14,7 +14,7 @@ export class AdminBooksComponent {
       name: "Book 1",
       author: "Author 1",
       category: "Category 1",
-      rating: 4,
+      rating: [],
       description: "Description for Book 1",
       status: "Want to read",
       image: "https://example.com/image1.jpg",
@@ -25,7 +25,7 @@ export class AdminBooksComponent {
       name: "Book 2",
       author: "Author 2",
       category: "Category 2",
-      rating: 3,
+      rating: [],
       description: "Description for Book 2",
       status: "Read",
       image: "https://example.com/image2.jpg",
@@ -36,7 +36,7 @@ export class AdminBooksComponent {
       name: "Book 3",
       author: "Author 3",
       category: "Category 1",
-      rating: 5,
+      rating: [],
       description: "Description for Book 3",
       status: "Currently Reading",
       image: "https://example.com/image3.jpg",
@@ -47,7 +47,7 @@ export class AdminBooksComponent {
       name: "Book 4",
       author: "Author 1",
       category: "Category 2",
-      rating: 2,
+      rating: [],
       description: "Description for Book 4",
       status: "Read",
       image: "https://example.com/image4.jpg",
