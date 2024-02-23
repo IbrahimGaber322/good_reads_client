@@ -1,0 +1,51 @@
+<div class="container h-100 py-3 bg-white overflow-y-auto">
+    <h1>Create Author</h1>
+    <form [formGroup]="authorForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Enter First Name">
+        <div *ngIf="authorForm.get('firstName')?.invalid && (authorForm.get('firstName')?.touched || authorForm.get('firstName')?.dirty)" class="text-danger">
+          First Name is required
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Enter Last Name">
+        <div *ngIf="authorForm.get('lastName')?.invalid && (authorForm.get('lastName')?.touched || authorForm.get('lastName')?.dirty)" class="text-danger">
+          Last Name is required
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="dob" class="form-label">Date Of Birth</label>
+        <input type="date" class="form-control" id="dob" formControlName="dob">
+        <div *ngIf="authorForm.get('dob')?.invalid && (authorForm.get('dob')?.touched || authorForm.get('dob')?.dirty)" class="text-danger">
+          Date of birth is required
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" id="category" formControlName="category">
+          <option *ngFor="let category of categoryOptions" [value]="category">{{ category }}</option>
+        </select>
+        <div *ngIf="authorForm.get('category')?.invalid && (authorForm.get('category')?.touched || authorForm.get('category')?.dirty)" class="text-danger">
+          Category is required
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="bio" class="form-label">Bio</label>
+        <textarea class="form-control" id="bio" formControlName="bio" rows="3" placeholder="Enter bio"></textarea>
+      </div>
+  
+      <div class="mb-3">
+        <label for="image" class="form-label">Image Upload</label>
+        <input type="file" class="form-control" id="image" (change)="onFileSelected($event)" accept="image/*">
+        <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="img-fluid mt-3" style="max-height: 200px;">
+      </div>
+      <div *ngIf="authorForm.get('image')?.invalid && (authorForm.get('image')?.touched || authorForm.get('image')?.dirty)" class="text-danger">
+        Please select an image
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  

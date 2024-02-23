@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../../services/auth/auth.service';
-import { TokenService } from '../../../services/token/token.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { TokenService } from '../../services/token/token.service';
 
 
 @Component({

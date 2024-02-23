@@ -1,0 +1,53 @@
+<div>
+    <h1 class="text-center text-body-emphasis">Admin Panel</h1>
+    <div [class.d-none]="create" class="h-75 w-100 overflow-y-auto overflow-x-auto">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link cursor-pointer" [class.active]="active==='categories'"
+                    (click)="setActive('categories')">Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link cursor-pointer" [class.active]="active==='books'"
+                    (click)="setActive('books')">Books</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link cursor-pointer" [class.active]="active==='authors'"
+                    (click)="setActive('authors')">Authors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link cursor-pointer" [class.active]="active==='users'"
+                    (click)="setActive('users')">Users</a>
+            </li>
+            <li class="nav-item ms-auto">
+                <a class="nav-link cursor-pointer" (click)="setCreate(true)">Add <i class="fa-solid fa-plus"></i></a>
+            </li>
+        </ul>
+        <div>
+            @if (active ==="books") {
+            <app-admin-books />
+            } @else if(active==="categories"){
+            <app-admin-categories />
+            } @else if (active==="authors") {
+            <app-admin-authors />
+            } @else if (active==="users") {
+            <app-admin-users />
+            }
+        </div>
+    </div>
+    @if(create){
+    <div
+        class="position-absolute start-0 end-0 top-0 bottom-0 w-100 h-100 d-flex align-items-center justify-content-center">
+        <div class="w-100">
+            @if (active==="books" ) {
+            <app-admin-book [setCreate]="setCreate" />
+            } @else if(active==="categories"){
+            <app-admin-category [setCreate]="setCreate" />
+            } @else if (active==="authors") {
+            <app-admin-author [setCreate]="setCreate" />
+            } @else if (active==="users") {
+            <app-admin-users />
+            }
+        </div>
+    </div>
+    }
+</div>

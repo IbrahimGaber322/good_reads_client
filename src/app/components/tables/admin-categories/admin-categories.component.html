@@ -1,0 +1,22 @@
+<table class="table table-image">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th class="text-center" scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (category of categories; track category._id; let i = $index) {
+        <tr>
+            <th scope="row">{{i+1}}</th>
+            <td>{{category.name}}</td>
+            <td>
+                <div class="d-flex w-100 h-100 justify-content-around pt-3">
+                    <i class="fa-solid fa-lg fa-pencil cursor-pointer text-primary"></i>
+                    <i class="fa-solid fa-lg fa-trash cursor-pointer text-danger"></i>
+                </div>
+            </td>
+        </tr>
+        }
+</table>

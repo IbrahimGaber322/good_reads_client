@@ -1,7 +1,9 @@
 export interface User {
-  fistName: string;
+  _id: String;
+  firstName: string;
   lastName: string;
   email: string;
-  image: string;
+  image?: string;
   admin: boolean;
+  confirmed: boolean;
 }
