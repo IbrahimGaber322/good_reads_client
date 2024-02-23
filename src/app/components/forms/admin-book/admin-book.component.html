@@ -1,0 +1,51 @@
+<div class="border border-primary rounded-4 h-100 py-3 bg-white overflow-y-auto">
+  <h1>Create Book</h1>
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter name">
+      <div *ngIf="bookForm.get('name')?.invalid && (bookForm.get('name')?.touched || bookForm.get('name')?.dirty)"
+        class="text-danger">
+        Name is required
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="author" class="form-label">Author</label>
+      <select class="form-select" id="author" formControlName="author">
+        <option *ngFor="let author of authorOptions" [value]="author">{{ author }}</option>
+      </select>
+      <div *ngIf="bookForm.get('author')?.invalid && (bookForm.get('author')?.touched || bookForm.get('author')?.dirty)"
+        class="text-danger">
+        Author is required
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <select class="form-select" id="category" formControlName="category">
+        <option *ngFor="let category of categoryOptions" [value]="category">{{ category }}</option>
+      </select>
+      <div
+        *ngIf="bookForm.get('category')?.invalid && (bookForm.get('category')?.touched || bookForm.get('category')?.dirty)"
+        class="text-danger">
+        Category is required
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" formControlName="description" rows="3"
+        placeholder="Enter description"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label">Image Upload</label>
+      <input type="file" class="form-control" id="image" (change)="onFileSelected($event)" accept="image/*">
+      <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="img-fluid mt-3" style="max-height: 200px;">
+    </div>
+    <div *ngIf="bookForm.get('image')?.invalid && (bookForm.get('image')?.touched || bookForm.get('image')?.dirty)"
+      class="text-danger">
+      Please select an image
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

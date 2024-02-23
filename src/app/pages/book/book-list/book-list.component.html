@@ -2,7 +2,7 @@
     <h1 class="text-center">Our Books</h1>
     <hr />
     <div class="row">
-     @for (book of books; track book.id) {
+     @for (book of books; track book._id) {
       <div class="col-md-4">
         <app-book-card [mybook]="book"></app-book-card>
     </div>

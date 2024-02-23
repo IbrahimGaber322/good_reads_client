@@ -1,0 +1,30 @@
+<table class="table table-image">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Photo</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Date Of Birth</th>
+            <th class="text-center" scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (author of authors; track author._id; let i = $index) {
+        <tr>
+            <th scope="row">{{i+1}}</th>
+            <td class="w-25">
+                <img [src]="author.image" class="img-fluid img-thumbnail" [alt]="author.firstName+'.img'">
+            </td>
+            <td>{{author.firstName}}</td>
+            <td>{{author.lastName}}</td>
+            <td>{{author.dob}}</td>
+            <td>
+                <div class="d-flex w-100 h-100 justify-content-around pt-3">
+                    <i class="fa-solid fa-lg fa-pencil cursor-pointer text-primary"></i>
+                    <i class="fa-solid fa-lg fa-trash cursor-pointer text-danger"></i>
+                </div>
+            </td>
+        </tr>
+        }
+</table>

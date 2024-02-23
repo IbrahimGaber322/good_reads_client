@@ -1,0 +1,58 @@
+import { Component } from '@angular/core';
+import Book from '../../../interfaces/book';
+
+@Component({
+  selector: 'app-admin-books',
+  standalone: true,
+  imports: [],
+  templateUrl: './admin-books.component.html',
+  styleUrl: './admin-books.component.css'
+})
+export class AdminBooksComponent {
+ books:Book[] = [
+    {_id:"sjifns14gejifnisf",
+      name: "Book 1",
+      author: "Author 1",
+      category: "Category 1",
+      rating: 4,
+      description: "Description for Book 1",
+      status: "Want to read",
+      image: "https://example.com/image1.jpg",
+      reviews: [],
+      clicks: 100,
+    },
+    {_id:"sjifns6o6yijifnisf",
+      name: "Book 2",
+      author: "Author 2",
+      category: "Category 2",
+      rating: 3,
+      description: "Description for Book 2",
+      status: "Read",
+      image: "https://example.com/image2.jpg",
+      reviews: [],
+      clicks: 50,
+    },
+    {_id:"sjifnsji5634567fnisf",
+      name: "Book 3",
+      author: "Author 3",
+      category: "Category 1",
+      rating: 5,
+      description: "Description for Book 3",
+      status: "Currently Reading",
+      image: "https://example.com/image3.jpg",
+      reviews: [],
+      clicks: 200,
+    },
+    {_id:"sjifdheu54nsjifnisf",
+      name: "Book 4",
+      author: "Author 1",
+      category: "Category 2",
+      rating: 2,
+      description: "Description for Book 4",
+      status: "Read",
+      image: "https://example.com/image4.jpg",
+      reviews: [],
+      clicks: 80,
+    },
+  ];
+}
