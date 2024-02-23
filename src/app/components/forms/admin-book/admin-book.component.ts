@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './admin-book.component.css'
 })
 export class AdminBookComponent {
-  @Input() setCreate(bool:Boolean){}
+  @Input() close(){}
   bookForm: FormGroup;
   imageUrl: string|null = null;
 
@@ -46,7 +46,7 @@ export class AdminBookComponent {
     if (this.bookForm.valid) {
       console.log(this.bookForm.value);
       this.bookForm.reset();
-      this.setCreate(false);
+      this.close();
     }
   }
 }

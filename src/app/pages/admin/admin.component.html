@@ -19,7 +19,7 @@
                     (click)="setActive('users')">Users</a>
             </li>
             <li class="nav-item ms-auto">
-                <a class="nav-link cursor-pointer" (click)="setCreate(true)">Add <i class="fa-solid fa-plus"></i></a>
+                <a class="nav-link cursor-pointer" (click)="open()">Add <i class="fa-solid fa-plus"></i></a>
             </li>
         </ul>
         <div>
@@ -34,20 +34,4 @@
             }
         </div>
     </div>
-    @if(create){
-    <div
-        class="position-absolute start-0 end-0 top-0 bottom-0 w-100 h-100 d-flex align-items-center justify-content-center">
-        <div class="w-100">
-            @if (active==="books" ) {
-            <app-admin-book [setCreate]="setCreate" />
-            } @else if(active==="categories"){
-            <app-admin-category [setCreate]="setCreate" />
-            } @else if (active==="authors") {
-            <app-admin-author [setCreate]="setCreate" />
-            } @else if (active==="users") {
-            <app-admin-users />
-            }
-        </div>
-    </div>
-    }
 </div>
