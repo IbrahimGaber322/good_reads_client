@@ -1,11 +1,24 @@
-  
-    <div class="card" (click)="redirctToDetails(mybook._id)"style="width: 18rem;">
-    <img src="https://i.imgur.com/ZTkt4I5.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{mybook.name}}</h5>
-      <p class="card-text">{{mybook.description}}</p>
-      <p class="card-text"><strong>Author Name:</strong> <a href="/authors/{{mybook.author._id}}">{{mybook.author.firstName}}</a></p>
+<!-- Card-->
+<div
+  class="card shadow-sm border-0 rounded mb-4"
+  (click)="redirctToDetails(mybook._id)"
+>
+  <div class="card-body p-0 " style="height: 425px;">
+    <img
+      src="https://i.imgur.com/ZTkt4I5.jpg"
+      alt=""
+      class="w-100 card-img-top"
+    />
+    <div class="p-4">
+      <h5 class="card-title">{{ mybook.name }}</h5>
+      <div class="desc">
+        <p class="card-text" style="height: 90px;">{{ mybook.description.length > 100 ? mybook.description.slice(0, 100) + '...' : mybook.description }}</p>
+      </div>
+      <p class="card-text">
+        <strong>Author Name: </strong><a [routerLink]="['/authors', mybook.author._id]">{{ mybook.author.firstName }} {{ mybook.author.lastName }}</a> <br>
+        <strong>Category: </strong><a [routerLink]="['/categories', mybook.category._id]">{{ mybook.category.name }} </a>
+      </p>
     </div>
     </div>
-          
-    
+  </div>
+

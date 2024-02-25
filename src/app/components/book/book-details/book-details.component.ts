@@ -14,11 +14,11 @@ import { Book } from '../../../interfaces/book';
 })
 export class BookDetailsComponent {
  
-    bookDetails!:any
+    bookDetails!:Book
     constructor(private activeroute:ActivatedRoute,private bookRequests:BookService ){}
     ngOnInit(){
       const id=this.activeroute.snapshot.params['id']
-      this.bookRequests.getBookDetails(id).subscribe((res:any)=>this.bookDetails = res)
+      this.bookRequests.getBookDetails(id).subscribe((res:Book)=>this.bookDetails = res)
     }
   
  

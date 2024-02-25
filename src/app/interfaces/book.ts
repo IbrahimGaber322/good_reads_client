@@ -4,8 +4,8 @@ import { Category } from "./category";
 export interface Book {
   _id: string;
   name: string;
-  author: string;
-  category: string;
+  author: Author;
+  category: Category;
   rating: Rating[];
   description: string;
   status: 'Want to read' | 'Read' | 'Currently Reading';

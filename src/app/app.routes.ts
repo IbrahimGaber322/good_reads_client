@@ -9,6 +9,7 @@ import { BookDetailsComponent } from './components/book/book-details/book-detail
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
 import { ReviewsComponent } from './components/book/reviews/reviews.component';
 import { AuthorDetailsComponent } from './components/author/author-details/author-details.component';
+import { CategoryBooksComponent } from './components/category/category-books/category-books.component';
 export const routes: Routes = [
 
     {
@@ -37,6 +38,12 @@ export const routes: Routes = [
         path:"categories",
         component:CategoryListComponent,
         title:"Categories",
+      
+    },
+    {
+        path:"categories/:id",
+        component:CategoryBooksComponent,
+        title:"Category Books",
       
     },
     {

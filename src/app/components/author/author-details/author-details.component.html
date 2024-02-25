@@ -9,14 +9,16 @@
       </div>
       <div class="col-md-9">
         <div>
-         <p class="fw-bold lead mb-2"><strong>{{authorDetails?.firstName}} {{authorDetails.lastName}}</strong></p>
+         <p class="fw-bold lead mb-2"><strong>{{authorDetails.firstName}} {{authorDetails.lastName}}</strong></p>
          <p class="lead mb-2">{{authorDetails.dob}}</p>
          <p class=" fw-light mb-4">{{authorDetails.bio}}</p>
         </div>
       </div>
   </div>
-  
-  
-
 </div>
-  
+<div class="text-center mt-3">
+  <h2 class="font-weight-bold mb-2">Author's Books</h2>
+</div>
+@for (authorbook of authorBooks; track authorbook._id) {
+  <app-author-books-card [myauthorbook]="authorbook"></app-author-books-card> 
+} 

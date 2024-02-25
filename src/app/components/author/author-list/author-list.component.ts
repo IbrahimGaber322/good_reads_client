@@ -16,6 +16,6 @@ export class AuthorListComponent {
   constructor(private authorService:AuthorService){}
 
   ngOnInit(){
-    this.authorService.getAuthors().subscribe((res:any)=>this.authors=res)
+    this.authorService.getAuthors().subscribe((res:Author[])=>this.authors=res)
   }
 }

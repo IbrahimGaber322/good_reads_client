@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Category } from '../../interfaces/category';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,17 @@ import { Injectable } from '@angular/core';
 export class CategoryService {
 
   constructor(private http:HttpClient) { }
-getCategories(){
-  return this.http.get('http://localhost:5000/categories/')
+getCategories(page?:number,limit?:number){
+  let params = {};
+  if (page !== undefined) {
+    params = { ...params, page: page.toString() };
+  }
+  if (limit !== undefined) {
+    params = { ...params, limit: limit.toString() };
+  }
+  return this.http.get<Category[]>('http://localhost:5000/categories/',{params:params})
 }
 getCategoryDetails(id:string){
-  return this.http.get(`http://localhost:5000/categories/${id}`)
+  return this.http.get<Category>(`http://localhost:5000/categories/${id}`)
 }
 }

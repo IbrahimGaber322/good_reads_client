@@ -1,15 +1,5 @@
-:root {
-    --gradient: linear-gradient(to left top, #DD2476 10%, #FF512F 90%) !important;
-  }
-  
-  body {
-    background:white !important;
-  }
-  
-  .card {
-    background:white;
-    border: 1px solid black;
-    color:black;
-    margin-bottom: 2rem;
-        
-  }
+img{
+height: 200px;
+}
+
+

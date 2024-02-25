@@ -1,3 +1,17 @@
+<div class="container py-5">
+    <!-- Second Row [Team]-->
+    <h2 class="font-weight-bold mb-2">Our Books</h2>
+    <div class="row pb-5 mb-4">
+        @for (book of books; track book._id) {
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <app-book-card [mybook]="book"></app-book-card> 
+        </div>
+        }
+   </div>
+   <app-pagination/>
+</div>
+
+<!-- 
 <div class="container">
     <h1 class="text-center">Our Books</h1>
     <hr />
@@ -8,4 +22,4 @@
             </div>
         }
     </div>
-</div>
+</div> -->
