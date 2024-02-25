@@ -6,7 +6,7 @@ import { Category } from '../../interfaces/category';
   providedIn: 'root'
 })
 export class CategoryService {
-
+  private apiUrl = 'http://localhost:5000/categories';
   constructor(private http:HttpClient) { }
 getCategories(page?:number,limit?:number){
   let params = {};

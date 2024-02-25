@@ -1,52 +1,124 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Book } from '../../../interfaces/book';
+import { BookService } from '../../../services/book/book.service';
+import { TokenService } from '../../../services/token/token.service';
+import { AuthorService } from '../../../services/author/author.service';
+import Author from '../../../interfaces/author';
+import { CategoryService } from '../../../services/category/category.service';
+import { Category } from '../../../interfaces/category';
 
 @Component({
   selector: 'app-admin-book',
   standalone: true,
   imports: [ReactiveFormsModule, NgIf, NgFor],
   templateUrl: './admin-book.component.html',
-  styleUrl: './admin-book.component.css'
+  styleUrl: './admin-book.component.css',
 })
 export class AdminBookComponent {
-  @Input() setCreate(bool:Boolean){}
+  @Input() close() {}
+  @Input() book?: Book;
   bookForm: FormGroup;
-  imageUrl: string|null = null;
+  imageUrl: string | null = null;
+  token: String | null = null;
 
+  categoryOptions: Category[] = [];
+  authorOptions: Author[] = [];
 
-  categoryOptions = ['Fiction', 'Non-Fiction', 'Science Fiction', 'Mystery', 'Fantasy'];
-  authorOptions = ['Author 1', 'Author 2', 'Author 3', 'Author 4', 'Author 5'];
-
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private bookService: BookService,
+    private tokenService: TokenService,
+    private authorService: AuthorService,
+    private categoryService: CategoryService
+  ) {
     this.bookForm = this.formBuilder.group({
       name: ['', Validators.required],
-      author: ['', Validators.required],
-      category: ['', Validators.required],
+      author: [null, Validators.required],
+      category: [null, Validators.required],
       description: [''],
-      image: [''],
+      image: [null],
     });
+  }
+
+  ngOnInit() {
+    this.token = this.tokenService.getToken();
+    if (this.book) {
+      this.bookForm.patchValue(this.book);
+      this.setImageUrl(this.book.image as File);
+    }
+    this.authorService.getAuthors().subscribe((d) => (this.authorOptions = d));
+    this.categoryService
+      .getCategories()
+      .subscribe((d) => (this.categoryOptions = d));
   }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imageUrl = reader.result as string;
-        this.bookForm.patchValue({ image: this.imageUrl });
-      };
-      reader.readAsDataURL(file);
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+    if (allowedTypes.includes(file.type)) {
+      this.bookForm.patchValue({ image: file });
+      this.setImageUrl(file);
     }
   }
 
+  setImageUrl(image: string | File) {
+    if (typeof image === 'string') {
+      this.imageUrl = image;
+    } else if (image instanceof File) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageUrl = reader.result as string;
+      };
+      reader.readAsDataURL(image);
+    }
+  }
   onSubmit() {
     this.bookForm.markAllAsTouched();
-    if (this.bookForm.valid) {
-      console.log(this.bookForm.value);
-      this.bookForm.reset();
-      this.setCreate(false);
+    console.log(this.bookForm.value.image);
+    if (this.bookForm.valid && this.token) {
+      const formData = new FormData();
+      formData.append('name', this.bookForm.get('name')!.value);
+      formData.append('author', this.bookForm.get('author')!.value._id);
+      formData.append('category', this.bookForm.get('category')!.value._id);
+      formData.append('description', this.bookForm.get('description')!.value);
+      formData.append('image', this.bookForm.get('image')!.value);
+      console.log(formData);
+      let request$;
+      if (this.book) {
+        const formValues = this.bookForm.value;
+        const isChanged = Object.keys(formValues).some(
+          (key) => this.book && formValues[key] !== this.book[key as keyof Book]
+        );
+
+        if (!isChanged) {
+          this.bookForm.reset();
+          this.close();
+          return;
+        }
+        request$ = this.bookService.updateBook(
+          formData,
+          localStorage.getItem('auth_token') || 'null',
+          this.book._id
+        );
+      } else {
+        request$ = this.bookService.addBook(
+          formData,
+          localStorage.getItem('auth_token') || 'null'
+        );
+      }
+
+      request$.subscribe(() => {
+        this.bookForm.reset();  
+        this.bookService.updateBooks();
+        this.close();
+      });
     }
   }
 }

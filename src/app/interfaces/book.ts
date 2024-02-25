@@ -9,7 +9,7 @@ export interface Book {
   rating: Rating[];
   description: string;
   status: 'Want to read' | 'Read' | 'Currently Reading';
-  image?: string;
+  image?: File;
   reviews: Review[];
   clicks?: number;
 }
