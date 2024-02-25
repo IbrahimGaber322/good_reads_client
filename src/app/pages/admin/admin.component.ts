@@ -76,7 +76,7 @@ export class AdminComponent {
             } @else if(active==="categories"){
             <app-admin-category [close]="close"  />
             } @else if (active==="authors") {
-            <app-admin-author [close]="close" />
+            <app-admin-author [close]="close" [author]="item" />
             } @else if (active==="users") {
             <app-admin-users />
             }

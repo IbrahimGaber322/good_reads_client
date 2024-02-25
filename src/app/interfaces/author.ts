@@ -4,7 +4,7 @@ export interface Author {
     lastName: string;
     dob?: Date;
     bio?: string;
-    image?: string;
+    image?: File;
   }
   
   export default Author;

@@ -1,5 +1,5 @@
 <div class="container h-100 bg-white overflow-y-auto">
-    <h1>Create Author</h1>
+    <h1>{{author?"Update":"Create"}} Author</h1>
     <form [formGroup]="authorForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label for="firstName" class="form-label">First Name</label>
@@ -17,18 +17,9 @@
       </div>
       <div class="mb-3">
         <label for="dob" class="form-label">Date Of Birth</label>
-        <input type="date" class="form-control" id="dob" formControlName="dob">
+        <input (change)="onDateSelect($event)" [(ngModel)]="authorForm.value.dob" type="date" class="form-control" id="dob" formControlName="dob">
         <div *ngIf="authorForm.get('dob')?.invalid && (authorForm.get('dob')?.touched || authorForm.get('dob')?.dirty)" class="text-danger">
           Date of birth is required
-        </div>
-      </div>
-      <div class="mb-3">
-        <label for="category" class="form-label">Category</label>
-        <select class="form-select" id="category" formControlName="category">
-          <option *ngFor="let category of categoryOptions" [value]="category">{{ category }}</option>
-        </select>
-        <div *ngIf="authorForm.get('category')?.invalid && (authorForm.get('category')?.touched || authorForm.get('category')?.dirty)" class="text-danger">
-          Category is required
         </div>
       </div>
       <div class="mb-3">
