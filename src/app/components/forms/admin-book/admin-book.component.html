@@ -1,5 +1,5 @@
 <div class="container h-100 bg-white overflow-y-auto">
-  <h1>Create Book</h1>
+  <h1>{{book?"Update Book":"Create Book"}}</h1>
   <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
@@ -12,7 +12,11 @@
     <div class="mb-3">
       <label for="author" class="form-label">Author</label>
       <select class="form-select" id="author" formControlName="author">
-        <option *ngFor="let author of authorOptions" [value]="author">{{ author }}</option>
+        @if(book){
+          <option [ngValue]="book.author" disabled>{{book.author.firstName+" "+book.author.lastName}}</option>
+        }
+        <option *ngFor="let author of authorOptions" [ngValue]="author" >{{ author.firstName + " " + author.lastName }}
+        </option>
       </select>
       <div *ngIf="bookForm.get('author')?.invalid && (bookForm.get('author')?.touched || bookForm.get('author')?.dirty)"
         class="text-danger">
@@ -22,7 +26,10 @@
     <div class="mb-3">
       <label for="category" class="form-label">Category</label>
       <select class="form-select" id="category" formControlName="category">
-        <option *ngFor="let category of categoryOptions" [value]="category">{{ category }}</option>
+        @if(book){
+          <option [ngValue]="book.category" disabled>{{book.category.name}}</option>
+        }
+        <option *ngFor="let category of categoryOptions" [ngValue]="category">{{ category.name }}</option>
       </select>
       <div
         *ngIf="bookForm.get('category')?.invalid && (bookForm.get('category')?.touched || bookForm.get('category')?.dirty)"
@@ -45,11 +52,11 @@
       class="text-danger">
       Please select an image
     </div>
-    <div class="d-flex gap-5">
+    <div class="d-flex w-100 justify-content-between">
       <button type="submit" class="btn btn-primary">Submit</button>
-         <button type="button" (click)="close()" class="btn btn-danger">Cancel
+      <button type="button" (click)="close()" class="btn btn-danger">Cancel
         <i class="fa-solid fa-xmark"></i></button>
     </div>
-   
+
   </form>
 </div>

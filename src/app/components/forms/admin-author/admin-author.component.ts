@@ -12,7 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AdminAuthorComponent {
 
-  @Input() setCreate(bool:Boolean){}
+  @Input() close(){}
   authorForm: FormGroup;
   imageUrl: string|null = null;
 
@@ -52,7 +52,7 @@ export class AdminAuthorComponent {
     if (this.authorForm.valid) {
       console.log(this.authorForm.value);
       this.authorForm.reset();
-      this.setCreate(false);
+      this.close();
     }
   }
 }

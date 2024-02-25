@@ -9,6 +9,10 @@
                 Name is required
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="d-flex w-100 justify-content-between">
+           <button type="submit" class="btn btn-primary">Submit</button>
+               <button type="button" (click)="close()" class="btn btn-danger">Cancel
+              <i class="fa-solid fa-xmark"></i></button>
+          </div>
     </form>
 </div>

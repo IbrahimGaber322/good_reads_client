@@ -16,7 +16,7 @@ import {
   styleUrl: './admin-category.component.css',
 })
 export class AdminCategoryComponent {
-  @Input() setCreate(bool: Boolean) {}
+  @Input() close(){}
   categoryForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
@@ -30,7 +30,7 @@ export class AdminCategoryComponent {
     if (this.categoryForm.valid) {
       console.log(this.categoryForm.value);
       this.categoryForm.reset();
-      this.setCreate(false);
+      this.close();
     }
   }
 }

@@ -19,7 +19,7 @@ books!:any[]
 
 
 ngOnInit(){
-  this.bookService.getBooks().subscribe((res:any)=>this.books=res)
+  this.bookService.getAllBooks().subscribe((res:any)=>this.books=res)
 
 }
 }

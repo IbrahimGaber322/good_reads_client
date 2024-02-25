@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AdminDeleteComponent } from '../../forms/admin-delete/admin-delete.component';
+import Author from '../../../interfaces/author';
 
 @Component({
   selector: 'app-admin-authors',
   standalone: true,
-  imports: [],
+  imports: [AdminDeleteComponent],
   templateUrl: './admin-authors.component.html',
   styleUrl: './admin-authors.component.css'
 })
@@ -34,4 +36,6 @@ export class AdminAuthorsComponent {
       image: "https://example.com/alice-johnson.jpg",
     },
   ];
+
+  @Input() edit(author:Author){}
 }
