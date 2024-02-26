@@ -17,6 +17,6 @@ export class CategoryBooksComponent {
   constructor(private activeroute:ActivatedRoute,private bookRequests:BookService ){}
   ngOnInit(){
     const id=this.activeroute.snapshot.params['id']
-    this.bookRequests.getBooks(id).subscribe((res:Book[])=>this.categoryBooks = res)
+    this.bookRequests.getAllBooks(id).subscribe((res:Book[])=>this.categoryBooks = res)
   }
 }

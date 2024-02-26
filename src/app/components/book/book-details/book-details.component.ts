@@ -21,7 +21,5 @@ export class BookDetailsComponent {
       this.bookRequests.getBookDetails(id).subscribe((res:Book)=>this.bookDetails = res)
     }
   
- 
-  
 
 }
