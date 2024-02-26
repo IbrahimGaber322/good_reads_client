@@ -1,7 +1,87 @@
-.active-link{
-    color: #FEBD69!important ;
-  }
-  .navbar{
-    background-color: #131921 !important;
-  }
-  
+
+.bg {
+  background-color: #f4f1ea;
+}
+
+.active-link {
+  color: #ff5733 !important;
+}
+
+
+.navbar-logo {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: auto;
+}
+
+.custom-search {
+  width: 500px;
+  height: 40px;
+  border-radius: 30px;
+}
+
+
+.navbar-nav .nav-link {
+  color: #193713;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  font-size: large;
+  font-weight: bold;
+}
+
+
+.custom-button {
+  background-color: #133729;
+  color: rgb(255, 255, 255);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: none;
+  padding: 10px 20px;
+  height:40px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.custom-button:hover {
+  background-color: #f4f1ea;
+  color: #13371b;
+}
+
+
+.u-ico {
+  width: 25px;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+.u-ico:hover {
+  transform: scale(1.5);
+}
+
+/* Active */
+.active {
+  font-weight: bold;
+  color: #1a3713;
+  font-size: 24px;
+}
+
+
+.custom-dropdown-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.flex-column {
+  margin-top: 20px;
+  background-color: #f4f1ea;
+  width: 170px;
+  height: 500px;
+}
