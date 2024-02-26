@@ -1,0 +1,21 @@
+.nav-link {
+  color: #333; /* Dark text color */
+  text-decoration: none; /* Remove underline */
+  margin: 10px 0; /* Shortened margin */
+  text-align: center;
+  transition: color 0.3s; /* Smooth color transition */
+}
+
+.nav-link:hover {
+  color: #666; /* Darker text color on hover */
+  font-weight: bold;
+}
+
+.flex-column {
+  margin-top: 20px;
+  background-color: #f9f9f9; /* Lighter background color */
+  width: 200px; /* Increased width for better visibility */
+  padding: 20px; /* Add padding for spacing */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
