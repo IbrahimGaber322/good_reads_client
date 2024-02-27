@@ -10,6 +10,7 @@ import { CategoryListComponent } from './components/category/category-list/categ
 import { ReviewsComponent } from './components/book/reviews/reviews.component';
 import { AuthorDetailsComponent } from './components/author/author-details/author-details.component';
 import { UserBooksComponent } from './components/user-books/user-books.component';
+import { UserLoginComponent } from './components/user-login/user-login.component';
 export const routes: Routes = [
 
     {
@@ -64,6 +65,12 @@ export const routes: Routes = [
       title:"userbooks",
 
    },
+   {
+    path:"login",
+    component:UserLoginComponent,
+    title:"login",
+
+ },
       {
           path:"**",
           component:NotfoundComponent,
