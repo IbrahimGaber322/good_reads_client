@@ -1,0 +1,8 @@
+[
+  { "name": "Oliver Twist", "author": "Charles Dickens", "avgRate": 3.3, "rating": 3, "shelve": "Read" },
+  { "name": "Still Lives", "author": "Maria H.", "avgRate": 4.1, "rating": 4, "shelve": "Read" },
+  { "name": "The Blue", "author": "Nancy B.", "avgRate": 4.0, "rating": 4, "shelve": "Read" },
+  { "name": "Book 1", "author": "Author 1", "avgRate": 4.5, "rating": 4, "shelve": "Currently Reading" },
+  { "name": "Book 2", "author": "Author 2", "avgRate": 3.8, "rating": 3, "shelve": "Currently Reading" },
+  { "name": "Book 3", "author": "Author 3", "avgRate": 4.2, "rating": 5, "shelve": "Want To Read" }
+]

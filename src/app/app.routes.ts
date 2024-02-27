@@ -9,6 +9,7 @@ import { BookDetailsComponent } from './components/book/book-details/book-detail
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
 import { ReviewsComponent } from './components/book/reviews/reviews.component';
 import { AuthorDetailsComponent } from './components/author/author-details/author-details.component';
+import { UserBooksComponent } from './components/user-books/user-books.component';
 export const routes: Routes = [
 
     {
@@ -25,38 +26,44 @@ export const routes: Routes = [
         path:"books",
         component:BookListComponent,
         title:"Books",
-      
+
     },
     {
         path:"books/:id",
         component:BookDetailsComponent,
         title:"Book Details",
-      
+
     },
     {
         path:"categories",
         component:CategoryListComponent,
         title:"Categories",
-      
+
     },
     {
         path:"authors",
         component:AuthorListComponent,
         title:"Authors",
-      
+
     },
     {
         path:"authors/:id",
         component:AuthorDetailsComponent,
         title:"Author Details",
-      
+
     },
     {
         path:"review",
         component:ReviewsComponent,
         title:"reviews",
-      
+
     },
+    {
+      path:"userbooks",
+      component:UserBooksComponent,
+      title:"userbooks",
+
+   },
       {
           path:"**",
           component:NotfoundComponent,

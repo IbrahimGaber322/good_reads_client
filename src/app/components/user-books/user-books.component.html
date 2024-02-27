@@ -1,0 +1,35 @@
+<div>
+  <select class="form-select" (change)="filterBooksByStatus($event)">
+    <option value="All">All</option>
+    <option value="Read">Read</option>
+    <option value="Currently Reading">Currently Reading</option>
+    <option value="Want To Read">Want to Read</option>
+  </select>
+</div>
+
+<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th class="th-sm">Name</th>
+      <th class="th-sm">Author</th>
+      <th class="th-sm">Description</th>
+      <th class="th-sm">Status</th>
+      <th class="th-sm">Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let book of filteredBooks">
+      <td>{{ book.name }}</td>
+      <td>{{ book.author.firstName }} {{ book.author.lastName }}</td>
+      <td>{{ book.description }}</td>
+      <td>
+        <select class="form-select" (change)="updateBookStatus($event, book._id)">
+           <option value="Read">Read</option>
+          <option value="Currently Reading">Currently Reading</option>
+          <option value="Want To Read">Want to Read</option>
+        </select>
+      </td>
+      <td><img [src]="book.image" alt="Book Image" style="max-width: 100px; max-height: 100px;"></td>
+    </tr>
+  </tbody>
+</table>
