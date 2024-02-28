@@ -10,13 +10,18 @@ import { Book } from '../../../interfaces/book';
   standalone: true,
   imports: [BookCardComponent],
   templateUrl: './category-books.component.html',
-  styleUrl: './category-books.component.css'
+  styleUrl: './category-books.component.css',
 })
 export class CategoryBooksComponent {
-  categoryBooks!:Book[]
-  constructor(private activeroute:ActivatedRoute,private bookRequests:BookService ){}
-  ngOnInit(){
-    const id=this.activeroute.snapshot.params['id']
-    this.bookRequests.getAllBooks(id).subscribe((res:Book[])=>this.categoryBooks = res)
+  categoryBooks!: Book[];
+  constructor(
+    private activeroute: ActivatedRoute,
+    private bookRequests: BookService
+  ) {}
+  ngOnInit() {
+    const id = this.activeroute.snapshot.params['id'];
+    this.bookRequests
+      .getAllBooks(id)
+      .subscribe((res) => (this.categoryBooks = res.books));
   }
 }

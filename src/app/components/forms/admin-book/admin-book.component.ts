@@ -82,7 +82,7 @@ export class AdminBookComponent {
       formData.append('category', this.bookForm.get('category')!.value._id);
       formData.append('description', this.bookForm.get('description')!.value);
       formData.append('image', this.bookForm.get('image')!.value);
-      console.log(formData);
+      console.log(this.token);
       let request$;
       if (this.book) {
         const formValues = this.bookForm.value;
@@ -97,13 +97,13 @@ export class AdminBookComponent {
         }
         request$ = this.bookService.updateBook(
           formData,
-          localStorage.getItem('auth_token') || 'null',
+          this.token,
           this.book._id
         );
       } else {
         request$ = this.bookService.addBook(
           formData,
-          localStorage.getItem('auth_token') || 'null'
+          this.token
         );
       }
 

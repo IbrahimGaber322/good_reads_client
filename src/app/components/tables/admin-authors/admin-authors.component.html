@@ -10,9 +10,9 @@
         </tr>
     </thead>
     <tbody>
-        @for (author of authors; track author._id; let i = $index) {
+        @for (author of authors; track author._id;) {
         <tr>
-            <th scope="row">{{i+1}}</th>
+            <th scope="row">{{author.id}}</th>
             <td class="w-25">
                 <img [src]="author.image" class="img-fluid img-thumbnail" [alt]="author.firstName+'.img'">
             </td>

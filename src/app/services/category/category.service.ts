@@ -17,12 +17,12 @@ export class CategoryService {
     this.categoryUpdatedSource.next();
   }
 
-  addCategory(data: Category, token: string|null) {
+  addCategory(data: Category, token: string | null) {
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
     return this.http.post<Category>(this.apiUrl, data, { headers });
   }
 
-  getCategories(page?: number, limit?: number) {
+  getCategories(page: number = 1, limit: number = 10) {
     let params = {};
     if (page !== undefined) {
       params = { ...params, page: page.toString() };
@@ -30,9 +30,12 @@ export class CategoryService {
     if (limit !== undefined) {
       params = { ...params, limit: limit.toString() };
     }
-    return this.http.get<Category[]>(this.apiUrl, {
-      params: params,
-    });
+    return this.http.get<{ categories: Category[]; categoriesCount: number }>(
+      this.apiUrl,
+      {
+        params,
+      }
+    );
   }
   getCategoryDetails(id: string) {
     return this.http.get<Category>(`${this.apiUrl}/${id}`);

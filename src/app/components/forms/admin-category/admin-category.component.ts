@@ -44,8 +44,8 @@ export class AdminCategoryComponent {
     this.categoryForm.markAllAsTouched();
     this.categoryService
       .addCategory(this.categoryForm.value, this.token)
-      .subscribe(
-        (response) => {
+      .subscribe({
+        next: (response) => {
           this.categoryService.updateCategories();
           this.categoryForm.reset();
           this.close();
@@ -55,13 +55,13 @@ export class AdminCategoryComponent {
             text: 'Category added successfully.',
           });
         },
-        (error) => {
+        error: (error) => {
           Swal.fire({
             icon: 'error',
             title: 'Error!',
             text: error.message,
           });
-        }
-      );
+        },
+      });
   }
 }

@@ -33,4 +33,6 @@ export class AuthService {
   confirm(token: String): Observable<{ token: string }> {
     return this.http.get<{ token: string }>(`${this.apiUrl}/confirm/${token}`);
   }
+
+  
 }

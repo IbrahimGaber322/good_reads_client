@@ -9,17 +9,16 @@ import { PaginationComponent } from '../../pagination/pagination.component';
 @Component({
   selector: 'app-book-list',
   standalone: true,
-  imports: [BookCardComponent,PaginationComponent],
+  imports: [BookCardComponent, PaginationComponent],
   templateUrl: './book-list.component.html',
-  styleUrl: './book-list.component.css'
+  styleUrl: './book-list.component.css',
 })
 export class BookListComponent {
-books!:Book[]
+  books!: Book[];
 
-  constructor(private bookService:BookService){}
+  constructor(private bookService: BookService) {}
 
-
-ngOnInit(){
-  this.bookService.getAllBooks().subscribe((res:Book[])=>this.books=res)
-}
+  ngOnInit() {
+    this.bookService.getAllBooks().subscribe((res) => (this.books = res.books));
+  }
 }

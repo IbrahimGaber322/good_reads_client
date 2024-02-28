@@ -7,7 +7,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { TokenService } from '../../services/token/token.service';
 
@@ -27,7 +27,8 @@ export class AdminLoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router:Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required]],
@@ -39,9 +40,11 @@ export class AdminLoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: (data) => {
+          console.log(data);
           if (data.token) {
             console.log(data.token);
-            this.tokenService.saveToken(data.token);
+            this.tokenService.setToken(data.token);
+            location.reload();
           }
         },
         error: (err) => {

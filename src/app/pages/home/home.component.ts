@@ -13,15 +13,15 @@ import { TokenService } from '../../services/token/token.service';
 })
 export class HomeComponent {
   user: User | null = null;
+  token: string|null = null;
   constructor(
     private userService: UserService,
     private tokenService: TokenService
   ) {}
   ngOnInit() {
     if (typeof localStorage !== 'undefined') {
-      const token = this.tokenService.getToken();
-      console.log(token);
-      this.userService.getUser(token).subscribe((data) => (this.user = data));
+      this.tokenService.authToken$.subscribe(token=> this.token=token);
+      this.userService.getUser(this.token).subscribe((data) => {this.user = data; });
     }
   }
   logUser() {

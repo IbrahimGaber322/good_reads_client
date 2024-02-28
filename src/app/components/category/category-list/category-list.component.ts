@@ -9,29 +9,31 @@ import { PaginationComponent } from '../../pagination/pagination.component';
 @Component({
   selector: 'app-category-list',
   standalone: true,
-  imports: [CategoryCardComponent,NgFor,PaginationComponent],
+  imports: [CategoryCardComponent, NgFor, PaginationComponent],
   templateUrl: './category-list.component.html',
-  styleUrl: './category-list.component.css'
+  styleUrl: './category-list.component.css',
 })
 export class CategoryListComponent {
-  categories!:Category[]
+  categories!: Category[];
   currentPage: number = 1;
 
-constructor(private CategoryService:CategoryService,private activatedRoute:ActivatedRoute){}
-ngOnInit(): void {
-  
-  this.currentPage=this.activatedRoute.snapshot.queryParams["page"] || 1
-  this.loadCategories(this.currentPage);
-}
+  constructor(
+    private CategoryService: CategoryService,
+    private activatedRoute: ActivatedRoute
+  ) {}
+  ngOnInit(): void {
+    this.currentPage = this.activatedRoute.snapshot.queryParams['page'] || 1;
+    this.loadCategories(this.currentPage);
+  }
 
-loadCategories(page: number): void {
-  this.CategoryService.getCategories(page, 5).subscribe((data: Category[]) => {
-    this.categories = data;
-  });
-}
+  loadCategories(page: number): void {
+    this.CategoryService.getCategories(page, 5).subscribe((data) => {
+      this.categories = data.categories;
+    });
+  }
 
-onPaginationChange(page: number): void {
-  this.currentPage = page;
-  this.loadCategories(this.currentPage);
-}
+  onPaginationChange(page: number): void {
+    this.currentPage = page;
+    this.loadCategories(this.currentPage);
+  }
 }

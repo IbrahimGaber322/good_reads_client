@@ -11,9 +11,9 @@
         </tr>
     </thead>
     <tbody>
-        @for (user of users; track user._id; let i = $index) {
+        @for (user of users; track user._id;) {
         <tr>
-            <th scope="row">{{i+1}}</th>
+            <th scope="row">{{user.id}}</th>
             <td class="w-25">
                 <img [src]="user.image" class="img-fluid img-thumbnail" [alt]="user.firstName+'.img'">
             </td>

@@ -8,14 +8,16 @@ import Author from '../../../interfaces/author';
   standalone: true,
   imports: [AuthorCardComponent],
   templateUrl: './author-list.component.html',
-  styleUrl: './author-list.component.css'
+  styleUrl: './author-list.component.css',
 })
 export class AuthorListComponent {
-  authors!:Author[]
+  authors!: Author[];
 
-  constructor(private authorService:AuthorService){}
+  constructor(private authorService: AuthorService) {}
 
-  ngOnInit(){
-    this.authorService.getAuthors().subscribe((res:Author[])=>this.authors=res)
+  ngOnInit() {
+    this.authorService
+      .getAuthors()
+      .subscribe((res) => (this.authors = res.authors));
   }
 }

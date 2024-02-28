@@ -69,7 +69,7 @@ export class NgbdModalContent {
   activeModal = inject(NgbActiveModal);
   @Input() item!: any;
   @Input() type!: string;
-  token!: string;
+  token!: string | null;
   close = () => this.activeModal.close('Close click');
   constructor(
     private bookService: BookService,
@@ -77,7 +77,7 @@ export class NgbdModalContent {
   ) {}
 
   ngOnInit() {
-    this.token = this.tokenService.getToken() || 'null';
+    this.tokenService.authToken$.subscribe((token) => (this.token = token));
   }
   handleDelete() {
     this.activeModal.close('Close click');
