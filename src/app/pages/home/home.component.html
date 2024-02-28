@@ -8,20 +8,45 @@
         </tr>
     </thead>
     <tbody>
-        @for (book of userBooks?.books; track book.name;) {
+        @for (book of userBooks?.books; track book.book_id;) {
         <tr>
             <td class="w-25">
             <img [src]="book.image" class="img-fluid img-thumbnail" [alt]="book.name+'.img'" style="max-width: 200px; max-height: 200px;">
             </td>
-            <td>{{book.name}}</td>
-            <td>{{book.author.firstName + " " + book.author.lastName}}</td>
+            <td>{{ book?.bookId?.name}}</td>
+            <td>{{book?.bookId?.author?.firstName + " " + book?.bookId?.author?.lastName}}</td>
+
             <td>       
-                <select class="form-select" [(ngModel)]="book.status" (change)="updateBookStatus(book._id, book.status)">
-                    <option value="Read">Read</option>
-                    <option value="Currently Reading">Currently Reading</option>
+                <select class="form-select"  (change)="updateBookStatus(book._id, book.status)">
+                    <option value="{{book.shelve}}" disabled selected>{{book.shelve}}</option>
+                    <option value="Read" >Read</option>
+                    <option value="Currently Reading" >Currently Reading</option>
                     <option value="Want To Read">Want to Read</option>
                   </select>
             </td>
         </tr>
         }
 </table>
+
+<div class="vertical-menu">
+    <nav class="nav flex-column">
+      <a class="nav-link" routerLink="/user/all" routerLinkActive="active-link"
+        >All</a
+      >
+      <a class="nav-link" routerLink="/user/read" routerLinkActive="active-link"
+        >Read</a
+      >
+      <a
+        class="nav-link"
+        routerLink="/user/currently-read"
+        routerLinkActive="active-link"
+        >Currently Reading</a
+      >
+      <a
+        class="nav-link"
+        routerLink="/user/want-to-read"
+        routerLinkActive="active-link"
+        >Want to Read</a
+      >
+    </nav>
+  </div>

@@ -48,8 +48,6 @@ export class AdminLoginComponent {
         return isValid ? null : { 'passwordRequirements': true };
       };
     }
-    
-
 }
 
 

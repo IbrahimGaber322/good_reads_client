@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -14,17 +15,17 @@ export class AuthService {
     username: string;
     password: string;
   }): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(`${this.apiUrl}/login`,credentials);}
-
-  signup(userInfo: {
-    firstName: string;
-    lastName: string;
-    image:string;
-    email: string;
-    password: string;
-  }): Observable<{ message:string }> {
-    return this.http.post<{ message:string }>(`${this.apiUrl}/signup`, userInfo);
+    return this.http.post<{ token: string }>(
+      `${this.apiUrl}/login`,
+      credentials
+    );
   }
+
+  signup(data: FormData): Observable<User> {
+    console.log(data)
+    const headers = new HttpHeaders().set('Content-Type', 'multipart/form-data');
+    return this.http.post<User>(this.apiUrl, data,{headers});
+  } 
 
   confirm(token: String): Observable<{ token: string }> {
     return this.http.get<{ token: string }>(`${this.apiUrl}/confirm/${token}`);

@@ -16,7 +16,7 @@ import { BookService } from '../../services/book/book.service';
 })
 export class HomeComponent {
   user: User | null = null;
-  userBooks: User | null = null;
+  userBooks: any | null = null;
 
   constructor(
     private userService: UserService,
@@ -29,7 +29,7 @@ export class HomeComponent {
       console.log(token);
       this.userService.getUser(token).subscribe((data) => (this.user = data));
     }
-    this.userService.getUserBooks("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGUzMDg3ZDgwNjI0MWQ3YmZiNTE2OSIsImlhdCI6MTcwOTA2MTAzMCwiZXhwIjoxNzA5MTQ3NDMwfQ.LoSmXXM_FjS9gFEesraxP0IN752qtNNrWmfTwM_ebew").subscribe((data) => (this.userBooks = data));
+    this.userService.getUserBooks("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0ZTk0OTExYTg4YmEyY2MwNDU5MSIsImlhdCI6MTcwOTE1NjMwOSwiZXhwIjoxNzA5MjQyNzA5fQ.MBW87hsKsTJ48sLISUVWJJBChGaXHh4d4W-WAC-xLhA").subscribe((data) => (this.userBooks = data));
     console.log(this.userBooks)
   }
 

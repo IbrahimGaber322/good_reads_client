@@ -1,1 +1,21 @@
-    
+.nav-link {
+    color: #333; 
+    text-decoration: none; 
+    margin: 10px 0; 
+    text-align: center;
+    transition: color 0.3s; 
+  }
+  
+  .nav-link:hover {
+    color: #666; 
+    font-weight: bold;
+  }
+  
+  .flex-column {
+    margin-top: 20px;
+    background-color: #f9f9f9; 
+    width: 200px; 
+    padding: 20px; 
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }

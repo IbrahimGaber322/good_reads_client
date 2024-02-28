@@ -6,7 +6,10 @@ export interface User {
   lastName: string;
   email: string;
   password: string;
-  books: Book[]; 
+  books: Array<{
+    bookId: Book;
+    shelve: "Want to read" | "Read" | "Currently Reading";
+  }>; 
   admin: boolean;
   image?:string
   confirmed: boolean;
