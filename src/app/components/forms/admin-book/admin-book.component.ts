@@ -26,17 +26,15 @@ export class AdminBookComponent {
   @Input() book?: Book;
   bookForm: FormGroup;
   imageUrl: string | null = null;
-  token: String | null = null;
 
-  categoryOptions: Category[] = [];
-  authorOptions: Author[] = [];
+  @Input() books: Book[] = [];
+  @Input() categories: Category[] = [];
+  @Input() authors: Author[] = [];
+  @Input() token: string|null = null;
 
   constructor(
     private formBuilder: FormBuilder,
-    private bookService: BookService,
-    private tokenService: TokenService,
-    private authorService: AuthorService,
-    private categoryService: CategoryService
+    private bookService: BookService
   ) {
     this.bookForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -48,15 +46,10 @@ export class AdminBookComponent {
   }
 
   ngOnInit() {
-    this.token = this.tokenService.getToken();
     if (this.book) {
       this.bookForm.patchValue(this.book);
       this.setImageUrl(this.book.image as File);
     }
-    this.authorService.getAuthors().subscribe((d) => (this.authorOptions = d));
-    this.categoryService
-      .getCategories()
-      .subscribe((d) => (this.categoryOptions = d));
   }
 
   onFileSelected(event: any) {

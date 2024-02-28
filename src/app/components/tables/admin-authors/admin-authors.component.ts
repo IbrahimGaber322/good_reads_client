@@ -9,17 +9,16 @@ import { AuthorService } from '../../../services/author/author.service';
   standalone: true,
   imports: [AdminDeleteComponent],
   templateUrl: './admin-authors.component.html',
-  styleUrl: './admin-authors.component.css'
+  styleUrl: './admin-authors.component.css',
 })
 export class AdminAuthorsComponent {
-  authors:Author[] = [];
-  Categories:Category[]=[];
-   @Input() edit(author:Author){}
- 
-   constructor(private authorService:AuthorService){}
- 
-   ngOnInit(){
-     this.authorService.getAuthors().subscribe(data=>this.authors=data);
-     this.authorService.authorUpdated$.subscribe(()=>this.authorService.getAuthors().subscribe(data=>this.authors=data));
-   }
+  @Input() authors: Author[] = [];
+  @Input() token: string | null = null;
+  @Input() edit(author: Author) {}
+
+  constructor() {}
+
+  ngOnInit() {
+   
+  }
 }

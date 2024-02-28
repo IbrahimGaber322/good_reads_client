@@ -27,11 +27,11 @@
             </ul>
             <div>
                 @if (active ==="books") {
-                <app-admin-books [edit]="open" />
+                <app-admin-books [edit]="open" [token]="token" [books]="books" />
                 } @else if(active==="categories"){
-                <app-admin-categories [edit]="open" />
+                <app-admin-categories [edit]="open" [token]="token" [categories]="categories" />
                 } @else if (active==="authors") {
-                <app-admin-authors [edit]="open" />
+                <app-admin-authors [edit]="open" [token]="token" [authors]="authors" />
                 } @else if (active==="users") {
                 <app-admin-users />
                 }

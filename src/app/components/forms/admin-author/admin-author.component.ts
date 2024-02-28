@@ -1,10 +1,10 @@
+import { AuthorService } from './../../../services/author/author.service';
 import { NgFor, NgIf } from '@angular/common';
 import { Component, Input} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TokenService } from '../../../services/token/token.service';
 import Author from '../../../interfaces/author';
-import { AuthorService } from '../../../services/author/author.service';
 import { Category } from '../../../interfaces/category';
 import { CategoryService } from '../../../services/category/category.service';
 
@@ -19,13 +19,15 @@ export class AdminAuthorComponent {
 
   @Input() close() {}
   @Input() author?: Author;
+  @Input() authors:Author[]=[];
+  @Input() token: string | null = null;
   authorForm: FormGroup;
   imageUrl: string|null = null;
-  token: String | null = null;
+  
 
 
 
-  constructor(private formBuilder: FormBuilder, private tokenService:TokenService, private authorService: AuthorService) {
+  constructor(private formBuilder: FormBuilder, private authorService:AuthorService) {
     this.authorForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -36,7 +38,6 @@ export class AdminAuthorComponent {
   }
 
   ngOnInit() {
-    this.token = this.tokenService.getToken();
     if (this.author?.dob) {
       console.log(new Date(this.author.dob))
       this.authorForm.patchValue({...this.author, dob: new Date(this.author.dob).toISOString().split('T')[0]});

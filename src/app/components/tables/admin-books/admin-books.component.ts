@@ -9,19 +9,14 @@ import { Category } from '../../../interfaces/category';
   standalone: true,
   imports: [AdminDeleteComponent],
   templateUrl: './admin-books.component.html',
-  styleUrl: './admin-books.component.css'
+  styleUrl: './admin-books.component.css',
 })
 export class AdminBooksComponent {
- books:Book[] = [];
- Categories:Category[]=[];
-  @Input() edit(book:Book){}
+  @Input() books: Book[] = [];
+  @Input() token: string | null = null;
+  @Input() edit(book: Book) {}
 
-  constructor(private bookService:BookService){}
+  constructor() {}
 
-  ngOnInit(){
-    this.bookService.getAllBooks().subscribe(data=>this.books=data)
-    this.bookService.bookUpdated$.subscribe(()=>this.bookService.getAllBooks().subscribe(data=>this.books=data))
-    
-  }
-
+  ngOnInit() {}
 }

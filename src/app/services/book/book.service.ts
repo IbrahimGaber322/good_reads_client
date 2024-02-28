@@ -37,7 +37,7 @@ export class BookService {
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
     return this.http.patch<Book>(`${this.apiUrl}/${bookId}`, data, { headers });
   }
-  deleteBook(id: string, token: String) {
+  deleteBook(id: string, token: string|null) {
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
     return this.http.delete<Book>(`${this.apiUrl}/${id}`, { headers });
   }
