@@ -14,11 +14,7 @@ export class AuthService {
     username: string;
     password: string;
   }): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(
-      `${this.apiUrl}/login`,
-      credentials
-    );
-  }
+    return this.http.post<{ token: string }>(`${this.apiUrl}/login`,credentials);}
 
   signup(userInfo: {
     firstName: string;

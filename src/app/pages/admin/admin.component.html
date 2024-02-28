@@ -1,4 +1,4 @@
-@if(user?.email){
+@if(!user?.email){
     <div>
         <h1 class="text-center text-body-emphasis">Admin Panel</h1>
         <div [class.d-none]="create" class="h-75 w-100 overflow-y-auto overflow-x-auto">

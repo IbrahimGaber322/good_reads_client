@@ -26,6 +26,7 @@ export class BookService {
   getAuthorBooks(Id: string){
     return this.http.get<Book[]>( `${this.apiUrl}/?author=${Id}`)
   }
+  
   getBookDetails(id: string) {
     return this.http.get<Book>(`${this.apiUrl}/${id}`);
   }

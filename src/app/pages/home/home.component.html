@@ -1,3 +1,27 @@
-
-<p>home works!</p>
-<button (click)="logUser()"></button>
+    <table class="table table-image">
+    <thead>
+        <tr>
+           <th scope="col">Cover</th>
+            <th scope="col">Name</th>
+            <th scope="col">Author</th>
+            <th class="text-center" scope="col">Shelve</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (book of userBooks?.books; track book.name;) {
+        <tr>
+            <td class="w-25">
+            <img [src]="book.image" class="img-fluid img-thumbnail" [alt]="book.name+'.img'" style="max-width: 200px; max-height: 200px;">
+            </td>
+            <td>{{book.name}}</td>
+            <td>{{book.author.firstName + " " + book.author.lastName}}</td>
+            <td>       
+                <select class="form-select" [(ngModel)]="book.status" (change)="updateBookStatus(book._id, book.status)">
+                    <option value="Read">Read</option>
+                    <option value="Currently Reading">Currently Reading</option>
+                    <option value="Want To Read">Want to Read</option>
+                  </select>
+            </td>
+        </tr>
+        }
+</table>
