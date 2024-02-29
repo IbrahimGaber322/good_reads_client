@@ -3,10 +3,15 @@
 <div class="container">
   <div class="vertical-menu">
     <nav class="nav flex-column">
-      <a class="nav-link" routerLink="/user/all" routerLinkActive="active-link">All</a>
-      <a class="nav-link" routerLink="/user/read" routerLinkActive="active-link">Read</a>
-      <a class="nav-link" routerLink="/user/currently-read" routerLinkActive="active-link">Currently Reading</a>
-      <a class="nav-link" routerLink="/user/want-to-read" routerLinkActive="active-link">Want to Read</a>
+      <a [style.color]="activeStatus=='All'?'blue':'grey'" class="nav-link cursor-pointer"
+        (click)="onSelectStat('All')">All</a>
+      <a [style.color]="activeStatus=='Read'?'blue':'grey'" class="nav-link cursor-pointer"
+        (click)="onSelectStat('Read')">Read</a>
+      <a [style.color]="activeStatus=='Currently Reading'?'blue':'grey'" class="nav-link cursor-pointer"
+        (click)="onSelectStat('Currently Reading')">Currently Reading</a>
+      <a [style.color]="activeStatus=='Want to read'?'blue':'grey'" class="nav-link cursor-pointer"
+        (click)="onSelectStat('Want to read')">Want to
+        read</a>
     </nav>
   </div>
 
@@ -48,7 +53,7 @@
               <option value="{{book.shelve}}" disabled selected>{{book.shelve}}</option>
               <option value="Read">Read</option>
               <option value="Currently Reading">Currently Reading</option>
-              <option value="Want To Read">Want to Read</option>
+              <option value="Want to read">Want to read</option>
             </select>
           </td>
         </tr>

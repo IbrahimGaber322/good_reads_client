@@ -16,8 +16,8 @@ export class BookService {
   updateBooks() {
     this.bookUpdatedSource.next();
   }
-  getAllBooks(page: number = 1, limit: number = 10) {
-    let params = {};
+  getAllBooks(page: number = 1, limit: number = 10, params?: any) {
+    console.log(params)
     if (page !== undefined) {
       params = { ...params, page: page.toString() };
     }
@@ -31,7 +31,7 @@ export class BookService {
   getAuthorBooks(Id: string) {
     return this.http.get<Book[]>(`${this.apiUrl}/?author=${Id}`);
   }
-  
+
   getBookDetails(id: string) {
     return this.http.get<Book>(`${this.apiUrl}/${id}`);
   }

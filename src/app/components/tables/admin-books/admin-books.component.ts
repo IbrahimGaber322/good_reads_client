@@ -21,7 +21,7 @@ export class AdminBooksComponent {
   pagingConfig: PagingConfig = {} as PagingConfig;
   currentPage: number = 1;
   itemsPerPage: number = 10;
-  @Input() booksCount!: number;
+  @Input() booksCount: number=0;
   @Input() fetchBooks(page: number = 1, limit: number = 10) {}
   ngOnInit() {
     this.pagingConfig = {

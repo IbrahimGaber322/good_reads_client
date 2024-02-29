@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+  import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../../interfaces/user';
@@ -42,9 +42,9 @@ export class UserService {
   getUserBooks(
     token: string | null,
     page: number = 1,
-    limit: number = 10
+    limit: number = 10,
+    params:any={}
   ): Observable<{ books: Book[]; booksCount: number }> {
-    let params = {};
     if (page !== undefined) {
       params = { ...params, page: page.toString() };
     }
@@ -52,6 +52,7 @@ export class UserService {
       params = { ...params, limit: limit.toString() };
     }
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
+    console.log(params);
     return this.http.get<{ books: Book[]; booksCount: number }>(
       `${this.apiUrl}/books`,
       { headers, params }
@@ -59,14 +60,14 @@ export class UserService {
   }
   updateUserBookStatus(
     bookId: string,
-    newStatus: string,
+    status: string,
     token: string | null
     
   ): Observable<User> {
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
     const body = {
       bookId,
-      newStatus,
+      status,
     };
     return this.http.patch<User>(`${this.apiUrl}/books`, body, { headers });
   }
