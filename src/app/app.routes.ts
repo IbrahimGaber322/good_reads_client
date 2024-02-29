@@ -14,12 +14,12 @@ export const routes: Routes = [
 
     {
         path:"",
-        component:HomeComponent,
+        component:HomePageComponent,
         title:"Home"
       },
       {
         path:"user",
-        component:HomePageComponent,
+        component:HomeComponent,
         title:"Home"
       },
       {
