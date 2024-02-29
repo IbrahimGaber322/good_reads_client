@@ -4,18 +4,16 @@
     
     <div class="col-md-3">
       <div>
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20%2810%29.webp"
-          class="rounded-circle img-fluid shadow-1" alt="woman avatar" width="130" height="130" />
+        <img [src]="myreview.author.image"
+          class="rounded-circle img-fluid shadow-1" alt="User Image" width="130" height="130" />
       </div>
     </div>
 
     <div class="col-md-9">
       <div>
-          <p class="fw-bold lead mb-2"><strong>{{myreview.username}}</strong></p>
+          <p class="fw-bold lead mb-2"><strong>{{myreview.author.firstName}} {{myreview.author.lastName}}</strong></p>
         <p class="text-muted fw-light mb-4">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id quam sapiente
-          molestiae numquam quas, voluptates omnis nulla ea odio quia similique
-          corrupti magnam.
+         {{myreview.text}}
         </p>
       </div>
     </div>
