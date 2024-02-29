@@ -51,8 +51,8 @@ export class HomeComponent {
     this.fetchUserBooks();
   }
 
-  fetchUserBooks(page: number = 1, limit: number = 10) {
-    this.userService.getUserBooks(this.token).subscribe((data) => {
+  fetchUserBooks(page: number = 1, limit: number = 1) {
+    this.userService.getUserBooks(this.token, page, limit).subscribe((data) => {
       this.userBooks = data.books.map((book: any) => ({
         ...book.bookId,
         shelve: book.shelve,

@@ -40,12 +40,21 @@ export class UserService {
   }
 
   getUserBooks(
-    token: string | null
+    token: string | null,
+    page: number = 1,
+    limit: number = 10
   ): Observable<{ books: Book[]; booksCount: number }> {
+    let params = {};
+    if (page !== undefined) {
+      params = { ...params, page: page.toString() };
+    }
+    if (limit !== undefined) {
+      params = { ...params, limit: limit.toString() };
+    }
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
     return this.http.get<{ books: Book[]; booksCount: number }>(
       `${this.apiUrl}/books`,
-      { headers }
+      { headers, params }
     );
   }
   updateUserBookStatus(
