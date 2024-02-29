@@ -3,6 +3,7 @@ import { Category } from "./category";
 
 export interface Book {
   _id: string;
+  id: Number;
   name: string;
   author: Author;
   category: Category;

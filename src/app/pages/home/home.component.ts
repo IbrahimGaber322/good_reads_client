@@ -16,8 +16,7 @@ import { BookService } from '../../services/book/book.service';
 })
 export class HomeComponent {
   user: User | null = null;
-  userBooks: any | null = null;
-
+  token: string|null = null;
   constructor(
     private userService: UserService,
     private tokenService: TokenService,
@@ -25,9 +24,8 @@ export class HomeComponent {
     ) {}
   ngOnInit() {
     if (typeof localStorage !== 'undefined') {
-      const token = this.tokenService.getToken();
-      console.log(token);
-      this.userService.getUser(token).subscribe((data) => (this.user = data));
+      this.tokenService.authToken$.subscribe(token=> this.token=token);
+      this.userService.getUser(this.token).subscribe((data) => {this.user = data; });
     }
     this.userService.getUserBooks("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZGY0ZTk0OTExYTg4YmEyY2MwNDU5MSIsImlhdCI6MTcwOTE1NjMwOSwiZXhwIjoxNzA5MjQyNzA5fQ.MBW87hsKsTJ48sLISUVWJJBChGaXHh4d4W-WAC-xLhA").subscribe((data) => (this.userBooks = data));
     console.log(this.userBooks)

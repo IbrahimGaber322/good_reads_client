@@ -1,45 +1,37 @@
 import { Component, Input } from '@angular/core';
 import { User } from '../../../interfaces/user';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PagingConfig } from '../../../interfaces/paging-config';
+import { NgFor } from '@angular/common';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-admin-users',
   standalone: true,
-  imports: [],
+  imports: [NgFor, NgxPaginationModule],
   templateUrl: './admin-users.component.html',
   styleUrl: './admin-users.component.css',
 })
 export class AdminUsersComponent {
-  users: User[] = [
-    // {
-    //   _id: '1',
-    //   firstName: 'John',
-    //   lastName: 'Doe',
-    //   email: 'john.doe@example.com',
-    //   image: 'https://example.com/john-doe.jpg',
-    //   admin: true,
-    //   confirmed: true,
-    // },
-    // {
-    //   _id: '2',
-    //   firstName: 'Jane',
-    //   lastName: 'Smith',
-    //   email: 'jane.smith@example.com',
-    //   image: 'https://example.com/jane-smith.jpg',
-    //   admin: false,
-    //   confirmed: true,
-    // },
-    // {
-    //   _id: '3',
-    //   firstName: 'Alice',
-    //   lastName: 'Johnson',
-    //   email: 'alice.johnson@example.com',
-    //   admin: false,
-    //   confirmed: false,
-    // },
-  ];
-
+  @Input() users: User[] = [];
   constructor(private modalService: NgbModal) {}
+  @Input() token: string | null = null;
+  pagingConfig: PagingConfig = {} as PagingConfig;
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  @Input() usersCount!: number;
+  @Input() fetchUsers(page: number = 1, limit: number = 10) {}
+  ngOnInit() {
+    this.pagingConfig = {
+      itemsPerPage: this.itemsPerPage,
+      currentPage: this.currentPage,
+      totalItems: this.usersCount,
+    };
+  }
+  onTableDataChange(event: any) {
+    this.pagingConfig.currentPage = event;
+    this.fetchUsers(event, this.itemsPerPage);
+  }
 
   makeAdmin(user: User) {
     const modalRef = this.modalService.open(NgbdModalContent, {

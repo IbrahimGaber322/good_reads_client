@@ -15,7 +15,7 @@
         @if(book){
           <option [ngValue]="book.author" disabled>{{book.author.firstName+" "+book.author.lastName}}</option>
         }
-        <option *ngFor="let author of authorOptions" [ngValue]="author" >{{ author.firstName + " " + author.lastName }}
+        <option *ngFor="let author of authors" [ngValue]="author" >{{ author.firstName + " " + author.lastName }}
         </option>
       </select>
       <div *ngIf="bookForm.get('author')?.invalid && (bookForm.get('author')?.touched || bookForm.get('author')?.dirty)"
@@ -29,7 +29,7 @@
         @if(book){
           <option [ngValue]="book.category" disabled>{{book.category.name}}</option>
         }
-        <option *ngFor="let category of categoryOptions" [ngValue]="category">{{ category.name }}</option>
+        <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
       </select>
       <div
         *ngIf="bookForm.get('category')?.invalid && (bookForm.get('category')?.touched || bookForm.get('category')?.dirty)"

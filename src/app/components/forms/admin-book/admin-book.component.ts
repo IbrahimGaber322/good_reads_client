@@ -13,7 +13,7 @@ import { AuthorService } from '../../../services/author/author.service';
 import Author from '../../../interfaces/author';
 import { CategoryService } from '../../../services/category/category.service';
 import { Category } from '../../../interfaces/category';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-admin-book',
   standalone: true,
@@ -26,17 +26,15 @@ export class AdminBookComponent {
   @Input() book?: Book;
   bookForm: FormGroup;
   imageUrl: string | null = null;
-  token: String | null = null;
 
-  categoryOptions: Category[] = [];
-  authorOptions: Author[] = [];
+  @Input() books: Book[] = [];
+  @Input() categories: Category[] = [];
+  @Input() authors: Author[] = [];
+  @Input() token: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
-    private bookService: BookService,
-    private tokenService: TokenService,
-    private authorService: AuthorService,
-    private categoryService: CategoryService
+    private bookService: BookService
   ) {
     this.bookForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -48,15 +46,10 @@ export class AdminBookComponent {
   }
 
   ngOnInit() {
-    this.token = this.tokenService.getToken();
     if (this.book) {
       this.bookForm.patchValue(this.book);
       this.setImageUrl(this.book.image as File);
     }
-    this.authorService.getAuthors().subscribe((d) => (this.authorOptions = d));
-    this.categoryService
-      .getCategories()
-      .subscribe((d) => (this.categoryOptions = d));
   }
 
   onFileSelected(event: any) {
@@ -81,7 +74,6 @@ export class AdminBookComponent {
   }
   onSubmit() {
     this.bookForm.markAllAsTouched();
-    console.log(this.bookForm.value.image);
     if (this.bookForm.valid && this.token) {
       const formData = new FormData();
       formData.append('name', this.bookForm.get('name')!.value);
@@ -89,7 +81,7 @@ export class AdminBookComponent {
       formData.append('category', this.bookForm.get('category')!.value._id);
       formData.append('description', this.bookForm.get('description')!.value);
       formData.append('image', this.bookForm.get('image')!.value);
-      console.log(formData);
+      let updated = false;
       let request$;
       if (this.book) {
         const formValues = this.bookForm.value;
@@ -104,20 +96,32 @@ export class AdminBookComponent {
         }
         request$ = this.bookService.updateBook(
           formData,
-          localStorage.getItem('auth_token') || 'null',
+          this.token,
           this.book._id
         );
+        updated = true;
       } else {
-        request$ = this.bookService.addBook(
-          formData,
-          localStorage.getItem('auth_token') || 'null'
-        );
+        request$ = this.bookService.addBook(formData, this.token);
       }
 
-      request$.subscribe(() => {
-        this.bookForm.reset();  
-        this.bookService.updateBooks();
-        this.close();
+      request$.subscribe({
+        next: (response) => {
+          this.bookForm.reset();
+          this.bookService.updateBooks();
+          this.close();
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: `Book ${updated? 'updated': 'added'} successfully.`,
+          });
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: error.message,
+          });
+        },
       });
     }
   }

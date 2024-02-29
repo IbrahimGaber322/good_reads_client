@@ -1,7 +1,8 @@
 import { Book } from "./book";
 
 export interface User {
-  _id: string; 
+  _id: String;
+  id: Number;
   firstName: string;
   lastName: string;
   email: string;

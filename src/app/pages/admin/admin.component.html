@@ -1,43 +1,44 @@
-@if(!user?.email){
-    <div>
-        <h1 class="text-center text-body-emphasis">Admin Panel</h1>
-        <div [class.d-none]="create" class="h-75 w-100 overflow-y-auto overflow-x-auto">
-            <ul class="nav nav-pills">
-                <li class="nav-item">
-                    <a class="nav-link cursor-pointer" [class.active]="active==='categories'"
-                        (click)="setActive('categories')">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link cursor-pointer" [class.active]="active==='books'"
-                        (click)="setActive('books')">Books</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link cursor-pointer" [class.active]="active==='authors'"
-                        (click)="setActive('authors')">Authors</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link cursor-pointer" [class.active]="active==='users'"
-                        (click)="setActive('users')">Users</a>
-                </li>
-                @if(active!=="users"){
-                <li class="nav-item ms-auto">
-                    <a class="nav-link cursor-pointer" (click)="open()">Add <i class="fa-solid fa-plus"></i></a>
-                </li>
-                }
-            </ul>
-            <div>
-                @if (active ==="books") {
-                <app-admin-books [edit]="open" />
-                } @else if(active==="categories"){
-                <app-admin-categories [edit]="open" />
-                } @else if (active==="authors") {
-                <app-admin-authors [edit]="open" />
-                } @else if (active==="users") {
-                <app-admin-users />
-                }
-            </div>
+@if(user?.email){
+<div>
+    <h1 class="text-center text-body-emphasis">Admin Panel</h1>
+    <div [class.d-none]="create" class="h-75 w-100 overflow-y-auto overflow-x-auto">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link cursor-pointer" [class.active]="active==='categories'"
+                    (click)="setActive('categories')">Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link cursor-pointer" [class.active]="active==='books'"
+                    (click)="setActive('books')">Books</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link cursor-pointer" [class.active]="active==='authors'"
+                    (click)="setActive('authors')">Authors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link cursor-pointer" [class.active]="active==='users'"
+                    (click)="setActive('users')">Users</a>
+            </li>
+            @if(active!=="users"){
+            <li class="nav-item ms-auto">
+                <a class="nav-link cursor-pointer" (click)="open()">Add <i class="fa-solid fa-plus"></i></a>
+            </li>
+            }
+        </ul>
+        <div>
+            @if (active ==="books") {
+            <app-admin-books [edit]="open" [token]="token" [books]="books" [booksCount]="booksCount" [fetchBooks]="fetchBooks" />
+            } @else if(active==="categories"){
+            <app-admin-categories [edit]="open" [fetchCategories]="fetchCategories" [token]="token" [categories]="categories" [categoriesCount]="categoriesCount" />
+            } @else if (active==="authors") {
+            <app-admin-authors [edit]="open" [token]="token" [authors]="authors" [authorsCount]="authorsCount" [fetchAuthors]="fetchAuthors" />
+            } @else if (active==="users") {
+            <app-admin-users [users]="users" [token]="token" [usersCount]="usersCount" [fetchUsers]="fetchUsers" />
+            }
         </div>
     </div>
+ 
+</div>
 }@else{
-  <app-admin-login />
+<app-admin-login />
 }

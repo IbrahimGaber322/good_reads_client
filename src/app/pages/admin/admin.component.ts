@@ -15,7 +15,12 @@ import { UserService } from '../../services/user/user.service';
 import { User } from '../../interfaces/user';
 import { TokenService } from '../../services/token/token.service';
 import { AdminLoginComponent } from '../../components/admin-login/admin-login.component';
-
+import { BookService } from '../../services/book/book.service';
+import { CategoryService } from '../../services/category/category.service';
+import { AuthorService } from '../../services/author/author.service';
+import { PaginationComponent } from '../../components/pagination/pagination.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgFor } from '@angular/common';
 @Component({
   selector: 'app-admin',
   standalone: true,
@@ -27,30 +32,101 @@ import { AdminLoginComponent } from '../../components/admin-login/admin-login.co
     AdminBookComponent,
     AdminAuthorComponent,
     AdminCategoryComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    PaginationComponent,
+    NgxPaginationModule,
+    NgFor,
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css',
 })
 export class AdminComponent {
-  user:User | null = null;
+  authors: Author[] = [];
+  categories: Category[] = [];
+  books: Book[] = [];
+  users: User[] = [];
+  token: string | null = null;
+  user: User | null = null;
   active: AdminTabs = 'categories';
   create: Boolean = false;
 
-  constructor(private modalService :NgbModal, private userService:UserService, private tokenService:TokenService){};
+  authorsCount: number = 10;
+  categoriesCount: number = 12;
+  booksCount: number = 10;
+  usersCount: number = 10;
+
+  constructor(
+    private modalService: NgbModal,
+    private userService: UserService,
+    private tokenService: TokenService,
+    private bookService: BookService,
+    private categoryService: CategoryService,
+    private authorService: AuthorService
+  ) {}
 
   ngOnInit() {
     if (typeof localStorage !== 'undefined') {
-      const token = this.tokenService.getToken();
-      this.userService.getUser(token).subscribe((data) => (this.user = data));
+      this.tokenService.authToken$.subscribe((token) => (this.token = token));
+      this.userService
+        .getUser(this.token)
+        .subscribe((data) => (this.user = data));
     }
+    this.fetchData();
   }
 
-  open = (item?:Author|Book|Category) => {
-    const modalRef = this.modalService.open(NgbdModalContent, {backdrop:"static"});
+  fetchData = () => {
+    this.fetchAuthors();
+    this.authorService.authorUpdated$.subscribe(() => this.fetchAuthors());
+    this.fetchBooks();
+    this.bookService.bookUpdated$.subscribe(() => this.fetchBooks());
+
+    this.fetchCategories();
+    this.categoryService.categoryUpdated$.subscribe(() =>
+      this.fetchCategories()
+    );
+
+    this.fetchUsers();
+    this.userService.userUpdated$.subscribe(() => this.fetchUsers());
+  };
+
+  fetchUsers = (page: number = 1, limit: number = 10) => {
+    this.userService.getAllUsers(this.token, page, limit).subscribe((data) => {
+      this.users = data.users;
+      this.usersCount = data.usersCount;
+    });
+  };
+
+  fetchCategories = (page: number = 1, limit: number = 10) => {
+    this.categoryService.getCategories(page, limit).subscribe((data) => {
+      this.categories = data.categories;
+      this.categoriesCount = data.categoriesCount;
+    });
+  };
+  fetchBooks = (page: number = 1, limit: number = 10) => {
+    this.bookService.getAllBooks(page, limit).subscribe((data) => {
+      this.books = data.books;
+      this.booksCount = data.booksCount;
+    });
+  };
+
+  fetchAuthors(page: number = 1, limit: number = 10) {
+    this.authorService.getAuthors(page, limit).subscribe((data) => {
+      this.authors = data.authors;
+      this.authorsCount = data.authorsCount;
+    });
+  }
+
+  open = (item?: Author | Book | Category) => {
+    const modalRef = this.modalService.open(NgbdModalContent, {
+      backdrop: 'static',
+    });
     modalRef.componentInstance.active = this.active;
     modalRef.componentInstance.item = item;
-  }
+    modalRef.componentInstance.authors = this.authors;
+    modalRef.componentInstance.books = this.books;
+    modalRef.componentInstance.categories = this.categories;
+    modalRef.componentInstance.token = this.token;
+  };
 
   setActive(table: AdminTabs) {
     this.active = table;
@@ -71,26 +147,45 @@ export class AdminComponent {
   ],
   template: `
     <div class="modal-body">
-    @if (active==="books" ) {
-            <app-admin-book [close]="close" [book]="item"  />
-            } @else if(active==="categories"){
-            <app-admin-category [close]="close"  />
-            } @else if (active==="authors") {
-            <app-admin-author [close]="close" [author]="item" />
-            } @else if (active==="users") {
-            <app-admin-users />
-            }
+      @if (active==="books" ) {
+      <app-admin-book
+        [close]="close"
+        [token]="token"
+        [book]="item"
+        [categories]="categories"
+        [authors]="authors"
+        [books]="books"
+      />
+      } @else if(active==="categories"){
+      <app-admin-category
+        [close]="close"
+        [token]="token"
+        [categories]="categories"
+      />
+      } @else if (active==="authors") {
+      <app-admin-author
+        [close]="close"
+        [token]="token"
+        [author]="item"
+        [authors]="authors"
+      />
+      } @else if (active==="users") {
+      <app-admin-users />
+      }
     </div>
   `,
 })
 export class NgbdModalContent {
   activeModal = inject(NgbActiveModal);
 
-  close = ()=> this.activeModal.close('Close click');
+  close = () => this.activeModal.close('Close click');
 
   @Input() active: string = 'categories';
-  @Input() item?:any;
+  @Input() item?: any;
+  @Input() categories: Category[] = [];
+  @Input() authors: Author[] = [];
+  @Input() books: Book[] = [];
+  @Input() token: string | null = null;
 }
-
 
 //check when closing

@@ -16,15 +16,20 @@ export class BookService {
   updateBooks() {
     this.bookUpdatedSource.next();
   }
-  getAllBooks(id?: string): Observable<Book[]> {
-    let url = this.apiUrl;
-    if(id){
-      url = url + `?category=${id}`;
+  getAllBooks(page: number = 1, limit: number = 10) {
+    let params = {};
+    if (page !== undefined) {
+      params = { ...params, page: page.toString() };
     }
-    return this.http.get<Book[]>(url);
+    if (limit !== undefined) {
+      params = { ...params, limit: limit.toString() };
+    }
+    return this.http.get<{ books: Book[]; booksCount: number }>(this.apiUrl, {
+      params,
+    });
   }
-  getAuthorBooks(Id: string){
-    return this.http.get<Book[]>( `${this.apiUrl}/?author=${Id}`)
+  getAuthorBooks(Id: string) {
+    return this.http.get<Book[]>(`${this.apiUrl}/?author=${Id}`);
   }
   
   getBookDetails(id: string) {
@@ -38,7 +43,7 @@ export class BookService {
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
     return this.http.patch<Book>(`${this.apiUrl}/${bookId}`, data, { headers });
   }
-  deleteBook(id: string, token: String) {
+  deleteBook(id: string, token: string | null) {
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
     return this.http.delete<Book>(`${this.apiUrl}/${id}`, { headers });
   }

@@ -1,4 +1,4 @@
-<table class="table table-image">
+<table class="table table-image mb-auto">
     <thead>
         <tr>
             <th scope="col">ID</th>
@@ -7,9 +7,9 @@
         </tr>
     </thead>
     <tbody>
-        @for (category of categories; track category._id; let i = $index) {
-        <tr>
-            <th scope="row">{{i+1}}</th>
+
+        <tr *ngFor="let category of categories | paginate : pagingConfig; let i = index">
+            <th scope="row">{{category.id}}</th>
             <td>{{category.name}}</td>
             <td>
                 <div class="d-flex w-100 h-100 justify-content-around pt-3 align-items-center">
@@ -18,5 +18,9 @@
                 </div>
             </td>
         </tr>
-        }
+    
 </table>
+<div class="d-flex justify-content-center mt-auto">
+    <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
+</div>

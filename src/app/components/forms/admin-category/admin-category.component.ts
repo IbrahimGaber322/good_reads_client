@@ -7,6 +7,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Category } from '../../../interfaces/category';
+import Swal from 'sweetalert2';
+import { CategoryService } from '../../../services/category/category.service';
 
 @Component({
   selector: 'app-admin-category',
@@ -16,21 +19,62 @@ import {
   styleUrl: './admin-category.component.css',
 })
 export class AdminCategoryComponent {
-  @Input() close(){}
+  @Input() categories: Category[] = [];
+  @Input() category?: Category;
+  @Input() close() {}
+  @Input() token: string | null = null;
   categoryForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private categoryService: CategoryService
+  ) {
     this.categoryForm = this.formBuilder.group({
       name: ['', Validators.required],
     });
   }
 
+  ngOnInit() {
+    if (this.category) {
+      this.categoryForm.patchValue(this.category);
+    }
+  }
+
   onSubmit() {
     this.categoryForm.markAllAsTouched();
-    if (this.categoryForm.valid) {
-      console.log(this.categoryForm.value);
-      this.categoryForm.reset();
-      this.close();
+
+    let request$;
+    let updated = false;
+    if (this.categoryForm.value.name == this.category?.name) {
+      request$ = this.categoryService.updateCategory(
+        this.categoryForm.value,
+        this.token
+      );
+      updated = true;
+    } else {
+      request$ = this.categoryService.addCategory(
+        this.categoryForm.value,
+        this.token
+      );
     }
+    request$.subscribe({
+      next: (response) => {
+        this.categoryService.updateCategories();
+        this.categoryForm.reset();
+        this.close();
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: `Category ${updated ? 'updated' : 'added'} successfully.`,
+        });
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: error.message,
+        });
+      },
+    });
   }
 }
