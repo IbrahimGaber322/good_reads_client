@@ -18,7 +18,7 @@
         <strong>Author Name: </strong><a [routerLink]="['/authors', mybook.author._id]">{{ mybook.author.firstName }} {{ mybook.author.lastName }}</a> <br>
         <strong>Category: </strong><a [routerLink]="['/categories', mybook.category._id]">{{ mybook.category.name }} </a>
       </p>
-    @if(bookExist()){
+    @if(!bookExist()){
       <button class="btn btn-primary" (click)="addBook(mybook._id,$event)">Add Book</button>
     }
     </div>

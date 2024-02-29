@@ -9,37 +9,45 @@ import { User } from '../../../interfaces/user';
 @Component({
   selector: 'app-book-card',
   standalone: true,
-  imports: [RouterLink,NgIf],
+  imports: [RouterLink, NgIf],
   templateUrl: './book-card.component.html',
-  styleUrl: './book-card.component.css'
+  styleUrl: './book-card.component.css',
 })
 export class BookCardComponent {
-@Input() mybook!:Book
-token: string | null = null;
-user!:User
-userBooks!:Book[]
-showDescription: boolean = false;
-constructor(private router : Router,private userService:UserService ,private tokenService:TokenService){}
-ngOnInit() {
-  if (typeof localStorage !== 'undefined') {
-    this.tokenService.authToken$.subscribe((token) => (this.token = token));
-    };
+  @Input() mybook!: Book;
+  token: string | null = null;
+  user!: User;
+  userBookIds!: string[];
+  showDescription: boolean = false;
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private tokenService: TokenService
+  ) {}
+  ngOnInit() {
+    if (typeof localStorage !== 'undefined') {
+      this.tokenService.authToken$.subscribe((token) => (this.token = token));
+    }
+    this.getuser();
   }
 
-redirctToDetails(id:string){
-  this.router.navigate(['books',id])
+  redirctToDetails(id: string) {
+    this.router.navigate(['books', id]);
   }
-  getuser(){
-    this.userService.getUser(this.token).subscribe((res)=>{this.user=res;
-    this.userBooks=res.books.map((item)=>item.bookId)
-    })
+  getuser() {
+    this.userService.getUser(this.token).subscribe((res) => {
+      this.user = res;
+      this.userBookIds = res.books.map((item: any) => item.bookId);
+      console.log(res);
+    });
   }
-addBook(bookId:string,event:Event){
-  this.userService.addUserBook(bookId,this.token).subscribe((res)=>console.log(res))
-  event.stopPropagation();
-}
-bookExist(){
-  console.log(this.userBooks)
-   return this.userBooks.some((book)=>book._id==this.mybook._id )
-}
+  addBook(bookId: string, event: Event) {
+    this.userService
+      .addUserBook(bookId, this.token)
+      .subscribe((res) => console.log(res));
+    event.stopPropagation();
+  }
+  bookExist() {
+    return this.userBookIds.some((id) => id == this.mybook._id);
+  }
 }
