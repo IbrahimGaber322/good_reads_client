@@ -1,18 +1,17 @@
-<div class="container d-flex align-items-center mt-5" >
+<div class="container d-flex align-items-center justify-content-around">
   <div class="text-center ">
     <h1>Categories</h1>
     <hr />
-    <div class="row justify-content-center">
-          
-      <div class="col-md-3" *ngFor="let category of categories | paginate : pagingConfig; let i = index">
-                <app-category-card [mycategory]="category"></app-category-card>
-            </div>
-        
+    <div class="d-flex gap-4 flex-wrap justify-content-center">
+
+      <div  *ngFor="let category of categories | paginate : pagingConfig; let i = index">
+        <app-category-card [mycategory]="category"></app-category-card>
+      </div>
+
     </div>
-    <div class="d-flex justify-content-center mt-auto">
+    <div class="d-flex justify-content-center mt-3">
       <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
       </pagination-controls>
     </div>
   </div>
 </div>
-

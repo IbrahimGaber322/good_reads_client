@@ -15,36 +15,35 @@ import { PagingConfig } from '../../../interfaces/paging-config';
   styleUrl: './category-list.component.css',
 })
 export class CategoryListComponent {
-  categories!: Category[];
-  categoryCount!: number;
+  categories: Category[] = [];
+  categoryCount: number = 0;
 
-  
-  pagingConfig: PagingConfig = {} as PagingConfig;
-  currentPage: number = 1;
-  itemsPerPage: number = 5;
+  pagingConfig: PagingConfig = {
+    itemsPerPage: 5,
+    currentPage: 1,
+    totalItems: 0,
+  };
 
-  onTableDataChange(event: any) {
-    this.pagingConfig.currentPage = event;
-    this.fetchcategories(event, this.itemsPerPage);
-  }
+  constructor(private categoryService: CategoryService) {}
 
-  constructor(
-    private CategoryService: CategoryService,) {}
   ngOnInit(): void {
-    this.pagingConfig = {
-      itemsPerPage: this.itemsPerPage,
-      currentPage: this.currentPage,
-      totalItems: this.categoryCount,
-    };
-    this.fetchcategories();
+    this.fetchCategories();
   }
 
-  fetchcategories(page: number = 1, limit: number = 5) {
-      this.CategoryService.getCategories( page, limit).subscribe((data) => {
-        this.categories = data.categories;     
-        this.categoryCount = data.categoriesCount;
-
-        console.log(data)
+  fetchCategories(page: number = 1, limit: number = 5) {
+    this.categoryService.getCategories(page, limit).subscribe((data) => {
+      this.categories = data.categories;
+      this.categoryCount = data.categoriesCount;
+      this.pagingConfig = {
+        itemsPerPage: limit,
+        currentPage: page,
+        totalItems: this.categoryCount,
+      };
     });
+  }
+
+  onTableDataChange(page: number) {
+    this.pagingConfig.currentPage = page;
+    this.fetchCategories(page, this.pagingConfig.itemsPerPage);
   }
 }
