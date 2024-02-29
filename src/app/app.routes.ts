@@ -2,13 +2,14 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AuthorListComponent } from './components/author/author-list/author-list.component';
-import {SideBarComponent} from './pages/home/side-bar/side-bar.component';
+import{RegisterComponent} from './components/register/register.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { BookListComponent } from './components/book/book-list/book-list.component';
 import { BookDetailsComponent } from './components/book/book-details/book-details.component';
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
 import { ReviewsComponent } from './components/book/reviews/reviews.component';
 import { AuthorDetailsComponent } from './components/author/author-details/author-details.component';
+import { CategoryBooksComponent } from './components/category/category-books/category-books.component';
 export const routes: Routes = [
 
     {
@@ -40,6 +41,12 @@ export const routes: Routes = [
 
     },
     {
+        path:"categories/:id",
+        component:CategoryBooksComponent,
+        title:"Category Books",
+
+    },
+    {
         path:"authors",
         component:AuthorListComponent,
         title:"Authors",
@@ -56,13 +63,13 @@ export const routes: Routes = [
         component:ReviewsComponent,
         title:"reviews",
 
-    },
-    {
-      path:"user",
-      component:SideBarComponent,
-      title:"user home",
+    },{
+      path:"signUp",
+      component:RegisterComponent,
+      title:"reviews",
 
-  },
+  }
+    ,
       {
           path:"**",
           component:NotfoundComponent,
