@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
@@ -26,9 +26,20 @@ export class UserLoginComponent {
     });
   }
 
+  passwordValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+      const password = control.value;
+      const isLengthValid = password.length >= 8;
+      const containsLowerAndUpper = /^(?=.*[a-z])(?=.*[A-Z])/.test(password);
+      const containsDigitAndSpecialChar = /^(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])/.test(password);
+
+      const isValid = isLengthValid && containsLowerAndUpper && containsDigitAndSpecialChar;
+      return isValid ? null : { 'passwordRequirements': true };
+    };
+  }
 
   onSubmit() {
-    console.log(this.loginForm);
+    // console.log(this.loginForm);
     if (this.loginForm.invalid) {
 
       return;
@@ -39,15 +50,17 @@ export class UserLoginComponent {
       password: this.loginForm.value.password
     };
 
+
+
     this.authService.login(credentials).subscribe({
-     next: (response) => {
-        localStorage.setItem('token', response.token);
-        this.router.navigate(['/userbooks']);
+      next: (response) => {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+          this.router.navigate(['/userbooks']);
+        } 
       },
-    error:  (error) => {
+      error: (error) => {
         console.error('Login failed:', error);
       }
-  });
-  }
-
-}
+    });
+  }}
