@@ -1,4 +1,4 @@
-  import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../../interfaces/user';
@@ -43,7 +43,7 @@ export class UserService {
     token: string | null,
     page: number = 1,
     limit: number = 10,
-    params:any={}
+    params: any = {}
   ): Observable<{ books: Book[]; booksCount: number }> {
     if (page !== undefined) {
       params = { ...params, page: page.toString() };
@@ -62,7 +62,6 @@ export class UserService {
     bookId: string,
     status: string,
     token: string | null
-    
   ): Observable<User> {
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
     const body = {
@@ -71,8 +70,15 @@ export class UserService {
     };
     return this.http.patch<User>(`${this.apiUrl}/books`, body, { headers });
   }
-  addUserBook(bookId:string,token:string | null){
+  addUserBook(bookId: string, token: string | null) {
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
-    return this.http.post<User>(`${this.apiUrl}/books`, {bookId}, { headers });
+    return this.http.post<User>(
+      `${this.apiUrl}/books`,
+      { bookId },
+      { headers }
+    );
+  }
+  confirmUser(token: string | null) {
+    return this.http.get(`${this.apiUrl}/confirm/${token}`);
   }
 }

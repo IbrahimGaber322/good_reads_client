@@ -12,6 +12,7 @@ import { AuthorDetailsComponent } from './components/author/author-details/autho
 import { CategoryBooksComponent } from './components/category/category-books/category-books.component';
 import { userGuard } from './guards/user.guard';
 import { adminGuard } from './guards/admin.guard';
+import { ConfirmComponent } from './pages/confirm/confirm.component';
 
 export const routes: Routes = [
 
@@ -66,6 +67,12 @@ export const routes: Routes = [
         path:"review",
         component:ReviewsComponent,
         title:"reviews",
+      
+    },
+    {
+        path:"confirm/:token",
+        component:ConfirmComponent,
+        title:"confirm",
       
     },
    
