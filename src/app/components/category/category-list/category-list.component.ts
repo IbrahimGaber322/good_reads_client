@@ -4,35 +4,46 @@ import { CategoryService } from './../../../services/category/category.service';
 import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { Category } from '../../../interfaces/category';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PagingConfig } from '../../../interfaces/paging-config';
 
 @Component({
   selector: 'app-category-list',
   standalone: true,
-  imports: [CategoryCardComponent, NgFor],
+  imports: [CategoryCardComponent, NgFor, NgxPaginationModule],
   templateUrl: './category-list.component.html',
   styleUrl: './category-list.component.css',
 })
 export class CategoryListComponent {
-  categories!: Category[];
-  currentPage: number = 1;
+  categories: Category[] = [];
+  categoryCount: number = 0;
 
-  constructor(
-    private CategoryService: CategoryService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  pagingConfig: PagingConfig = {
+    itemsPerPage: 5,
+    currentPage: 1,
+    totalItems: 0,
+  };
+
+  constructor(private categoryService: CategoryService) {}
+
   ngOnInit(): void {
-    this.currentPage = this.activatedRoute.snapshot.queryParams['page'] || 1;
-    this.loadCategories(this.currentPage);
+    this.fetchCategories();
   }
 
-  loadCategories(page: number): void {
-    this.CategoryService.getCategories(page, 5).subscribe((data) => {
+  fetchCategories(page: number = 1, limit: number = 5) {
+    this.categoryService.getCategories(page, limit).subscribe((data) => {
       this.categories = data.categories;
+      this.categoryCount = data.categoriesCount;
+      this.pagingConfig = {
+        itemsPerPage: limit,
+        currentPage: page,
+        totalItems: this.categoryCount,
+      };
     });
   }
 
-  onPaginationChange(page: number): void {
-    this.currentPage = page;
-    this.loadCategories(this.currentPage);
+  onTableDataChange(page: number) {
+    this.pagingConfig.currentPage = page;
+    this.fetchCategories(page, this.pagingConfig.itemsPerPage);
   }
 }

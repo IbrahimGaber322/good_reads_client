@@ -18,6 +18,7 @@ import { PagingConfig } from '../../interfaces/paging-config';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
+  activeStatus: 'All' | 'Want to read' | 'Read' | 'Currently Reading' = 'All';
   user: User | null = null;
   token: string | null = null;
   userBooks: Book[] = [];
@@ -51,24 +52,38 @@ export class HomeComponent {
     this.fetchUserBooks();
   }
 
-  fetchUserBooks(page: number = 1, limit: number = 1) {
-    this.userService.getUserBooks(this.token, page, limit).subscribe((data) => {
-      this.userBooks = data.books.map((book: any) => ({
-        ...book.bookId,
-        shelve: book.shelve,
-        _id: book._id,
-      }));
-      this.booksCount = data.booksCount;
-      console.log(data.books);
-    });
+  fetchUserBooks(page: number = 1, limit: number = 5, params: any = {}) {
+    this.userService
+      .getUserBooks(this.token, page, limit, params)
+      .subscribe((data) => {
+        this.userBooks = data.books.map((book: any) => ({
+          ...book.bookId,
+          shelve: book.shelve,
+          _id: book._id,
+        }));
+        this.booksCount = data.booksCount;
+        if (params.shelve) {
+          this.activeStatus = params.shelve;
+        }
+      });
   }
 
-  logUser() {
-    console.log(this.user);
+  onSelectStat(shelve: 'All' | 'Want to read' | 'Read' | 'Currently Reading') {
+    if (!(shelve === 'All')) {
+      this.fetchUserBooks(1, 5, { shelve });
+    } else {
+      this.fetchUserBooks();
+    }
   }
-  updateBookStatus(bookId: string, newStatus: string = '') {
+
+  updateBookStatus(
+    bookId: string,
+    status: 'Want to read' | 'Read' | 'Currently Reading' = 'Want to read'
+  ) {
     this.userService
-      .updateUserBookStatus(bookId, newStatus, this.token)
-      .subscribe((res: any) => console.log(res));
+      .updateUserBookStatus(bookId, status, this.token)
+      .subscribe((res: any) => {
+        this.onSelectStat(status);
+      });
   }
 }

@@ -22,8 +22,7 @@ export class AuthorDetailsComponent {
   ngOnInit(){
     const id=this.ActivatedRoute.snapshot.params['id']
    this.authorService.getAuthorDetails(id).subscribe((res:Author)=>this.authorDetails=res) 
-   this.bookRequests.getAuthorBooks(id).subscribe((res:Book[])=>this.authorBooks = res)
-
+   this.bookRequests.getAuthorBooks(id).subscribe((res:any)=>this.authorBooks = res.books)
   }
 }
   
