@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../../interfaces/user';
+import { Book } from '../../interfaces/book';
 
 @Injectable({
   providedIn: 'root',
@@ -38,13 +39,18 @@ export class UserService {
     });
   }
 
-  getUserBooks(token: string | null): Observable<User> {
+  getUserBooks(
+    token: string | null
+  ): Observable<{ books: Book[]; booksCount: number }> {
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
-    return this.http.get<User>(`${this.apiUrl}/books`, { headers });
+    return this.http.get<{ books: Book[]; booksCount: number }>(
+      `${this.apiUrl}/books`,
+      { headers }
+    );
   }
   updateUserBookStatus(
     bookId: string,
-    newStatus: FormData,
+    newStatus: string,
     token: string | null
   ): Observable<User> {
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });

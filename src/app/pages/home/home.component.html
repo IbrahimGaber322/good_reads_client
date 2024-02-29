@@ -1,71 +1,63 @@
 <!-- user-dashboard.component.html -->
 
 <div class="container">
-    <div class="vertical-menu">
-      <nav class="nav flex-column">
-        <a class="nav-link" routerLink="/user/all" routerLinkActive="active-link"
-          >All</a
-        >
-        <a class="nav-link" routerLink="/user/read" routerLinkActive="active-link"
-          >Read</a
-        >
-        <a
-          class="nav-link"
-          routerLink="/user/currently-read"
-          routerLinkActive="active-link"
-          >Currently Reading</a
-        >
-        <a
-          class="nav-link"
-          routerLink="/user/want-to-read"
-          routerLinkActive="active-link"
-          >Want to Read</a
-        >
-      </nav>
-    </div>
-  
-    <div class="table-container">
-      <table class="table table-image">
-        <thead>
-          <tr>
-            <th scope="col">Cover</th>
-            <th scope="col">Name</th>
-            <th scope="col">Author</th>
-            <th scope="col">Rating</th>
-            <th class="text-center" scope="col">Shelve</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (book of userBooks?.books; track book.book_id;) {
-          <tr>
-            <td class="w-25">
-              <img [src]="book.image" class="img-fluid img-thumbnail" [alt]="book.name+'.img'" style="max-width: 200px; max-height: 200px;">
-            </td>
-            <td>{{ book?.bookId?.name}}</td>
-            <td>{{book?.bookId?.author?.firstName + " " + book?.bookId?.author?.lastName}}</td>
-            <td> <div class="star-ratings">
-                 <div class="star-ratings">
+  <div class="vertical-menu">
+    <nav class="nav flex-column">
+      <a class="nav-link" routerLink="/user/all" routerLinkActive="active-link">All</a>
+      <a class="nav-link" routerLink="/user/read" routerLinkActive="active-link">Read</a>
+      <a class="nav-link" routerLink="/user/currently-read" routerLinkActive="active-link">Currently Reading</a>
+      <a class="nav-link" routerLink="/user/want-to-read" routerLinkActive="active-link">Want to Read</a>
+    </nav>
+  </div>
+
+  <div class="table-container">
+    <table class="table table-image">
+      <thead>
+        <tr>
+          <th scope="col">Cover</th>
+          <th scope="col">Name</th>
+          <th scope="col">Author</th>
+          <th scope="col">Rating</th>
+          <th class="text-center" scope="col">Shelve</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let book of userBooks | paginate : pagingConfig; let i = index">
+          <td class="w-25">
+            <img [src]="book.image" class="img-fluid img-thumbnail" [alt]="book.name+'.img'"
+              style="max-width: 200px; max-height: 200px;">
+          </td>
+          <td>{{ book?.name}}</td>
+          <td>{{book?.author?.firstName + " " + book?.author?.lastName}}</td>
+          <td>
+            <div class="star-ratings">
+              <div class="star-ratings">
                 <span class="star">&#9733;</span>
                 <span class="star">&#9733;</span>
                 <span class="star">&#9733;</span>
                 <span class="star">&#9733;</span>
                 <span class="star">&#9734;</span>
               </div>
-              </div>
-            </td>
+            </div>
+          </td>
 
-            <td>       
-              <select class="form-select"  [(ngModel)]="book.shelve" (ngModelChange)="updateBookStatus(book.bookId._id, book.shelve)">
-                <option value="{{book.shelve}}" disabled selected>{{book.shelve}}</option>
-                <option value="Read" >Read</option>
-                <option value="Currently Reading" >Currently Reading</option>
-                <option value="Want To Read">Want to Read</option>
-              </select>
-            </td>
-          </tr>
-          }
-        </tbody>
-      </table>
+          <td>
+            <select class="form-select" [(ngModel)]="book.shelve"
+              (ngModelChange)="updateBookStatus(book._id, book.shelve)">
+              <option value="{{book.shelve}}" disabled selected>{{book.shelve}}</option>
+              <option value="Read">Read</option>
+              <option value="Currently Reading">Currently Reading</option>
+              <option value="Want To Read">Want to Read</option>
+            </select>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center mt-auto">
+      <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
     </div>
   </div>
-  
+</div>

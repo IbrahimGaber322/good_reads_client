@@ -1,5 +1,5 @@
-import Author from "./author";
-import { Category } from "./category";
+import Author from './author';
+import { Category } from './category';
 
 export interface Book {
   _id: string;
@@ -13,10 +13,11 @@ export interface Book {
   image?: File;
   reviews: Review[];
   clicks?: number;
+  shelve?: 'Want to read' | 'Read' | 'Currently Reading';
 }
 export interface Rating {
   rating: number;
-  userId: string; 
+  userId: string;
 }
 
 interface Review {
