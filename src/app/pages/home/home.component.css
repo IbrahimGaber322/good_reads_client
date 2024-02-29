@@ -19,3 +19,34 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
+  .container {
+    display: flex;
+  }
+  
+  .vertical-menu {
+    width: 200px; /* Adjust the width as needed */
+    padding: 15px;
+    background-color: #f8f9fa; /* Set background color as needed */
+  }
+  
+  .table-container {
+    flex: 1;
+    padding: 15px;
+  }
+  .star-ratings {
+    display: inline-block;
+    font-size: 0;
+    margin-left: 10px;
+  }
+  
+  .star {
+    display: inline-block;
+    font-size: 24px;
+    color: #ccc;
+    transition: color 0.3s ease;
+  }
+  
+  .star:hover,
+  .star:hover ~ .star {
+    color: #ffd700;
+  }
