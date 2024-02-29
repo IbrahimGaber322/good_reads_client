@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AuthorListComponent } from './components/author/author-list/author-list.component';
-import{RegisterComponent} from './components/register/register.component';
+import{HomePageComponent} from './components/home/home-page.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { BookListComponent } from './components/book/book-list/book-list.component';
 import { BookDetailsComponent } from './components/book/book-details/book-details.component';
@@ -15,6 +15,11 @@ export const routes: Routes = [
     {
         path:"",
         component:HomeComponent,
+        title:"Home"
+      },
+      {
+        path:"user",
+        component:HomePageComponent,
         title:"Home"
       },
       {
@@ -63,13 +68,8 @@ export const routes: Routes = [
         component:ReviewsComponent,
         title:"reviews",
 
-    },{
-      path:"signUp",
-      component:RegisterComponent,
-      title:"reviews",
+    },
 
-  }
-    ,
       {
           path:"**",
           component:NotfoundComponent,
