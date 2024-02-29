@@ -42,26 +42,39 @@ export class AdminCategoryComponent {
 
   onSubmit() {
     this.categoryForm.markAllAsTouched();
-    this.categoryService
-      .addCategory(this.categoryForm.value, this.token)
-      .subscribe({
-        next: (response) => {
-          this.categoryService.updateCategories();
-          this.categoryForm.reset();
-          this.close();
-          Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: 'Category added successfully.',
-          });
-        },
-        error: (error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            text: error.message,
-          });
-        },
-      });
+
+    let request$;
+    let updated = false;
+    if (this.categoryForm.value.name == this.category?.name) {
+      request$ = this.categoryService.updateCategory(
+        this.categoryForm.value,
+        this.token
+      );
+      updated = true;
+    } else {
+      request$ = this.categoryService.addCategory(
+        this.categoryForm.value,
+        this.token
+      );
+    }
+    request$.subscribe({
+      next: (response) => {
+        this.categoryService.updateCategories();
+        this.categoryForm.reset();
+        this.close();
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: `Category ${updated ? 'updated' : 'added'} successfully.`,
+        });
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: error.message,
+        });
+      },
+    });
   }
 }

@@ -13,11 +13,11 @@
         <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Enter Last Name">
         <div *ngIf="authorForm.get('lastName')?.invalid && (authorForm.get('lastName')?.touched || authorForm.get('lastName')?.dirty)" class="text-danger">
           Last Name is required
-        </div>
+        </div>  
       </div>
       <div class="mb-3">
         <label for="dob" class="form-label">Date Of Birth</label>
-        <input (change)="onDateSelect($event)" [(ngModel)]="authorForm.value.dob" type="date" class="form-control" id="dob" formControlName="dob">
+        <input (change)="onDateSelect($event)" type="date" class="form-control" id="dob" formControlName="dob">
         <div *ngIf="authorForm.get('dob')?.invalid && (authorForm.get('dob')?.touched || authorForm.get('dob')?.dirty)" class="text-danger">
           Date of birth is required
         </div>

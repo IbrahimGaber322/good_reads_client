@@ -13,18 +13,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styleUrl: './admin-categories.component.css',
 })
 export class AdminCategoriesComponent {
+  pagingConfig: PagingConfig = {} as PagingConfig;
   currentPage: number = 1;
   itemsPerPage: number = 10;
   @Input() categoriesCount!: number;
-  @Input() categories: Category[] = [];
   @Input() fetchCategories(page: number = 1, limit: number = 10) {}
+  @Input() categories: Category[] = [];
   @Input() token: string | null = null;
   @Input() edit(category: Category) {}
-  pagingConfig: PagingConfig = {} as PagingConfig;
 
-  constructor() {
-    console.log(this.categoriesCount);
-  }
   ngOnInit() {
     this.pagingConfig = {
       itemsPerPage: this.itemsPerPage,

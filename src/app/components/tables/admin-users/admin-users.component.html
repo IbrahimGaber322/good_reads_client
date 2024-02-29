@@ -11,8 +11,8 @@
         </tr>
     </thead>
     <tbody>
-        @for (user of users; track user._id;) {
-        <tr>
+
+        <tr *ngFor="let user of users | paginate : pagingConfig; let i = index">
             <th scope="row">{{user.id}}</th>
             <td class="w-25">
                 <img [src]="user.image" class="img-fluid img-thumbnail" [alt]="user.firstName+'.img'">
@@ -29,5 +29,10 @@
 
             </td>
         </tr>
-        }
+
 </table>
+
+<div class="d-flex justify-content-center mt-auto">
+    <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
+</div>

@@ -27,13 +27,13 @@
         </ul>
         <div>
             @if (active ==="books") {
-            <app-admin-books [edit]="open" [token]="token" [books]="books" />
+            <app-admin-books [edit]="open" [token]="token" [books]="books" [booksCount]="booksCount" [fetchBooks]="fetchBooks" />
             } @else if(active==="categories"){
             <app-admin-categories [edit]="open" [fetchCategories]="fetchCategories" [token]="token" [categories]="categories" [categoriesCount]="categoriesCount" />
             } @else if (active==="authors") {
-            <app-admin-authors [edit]="open" [token]="token" [authors]="authors" />
+            <app-admin-authors [edit]="open" [token]="token" [authors]="authors" [authorsCount]="authorsCount" [fetchAuthors]="fetchAuthors" />
             } @else if (active==="users") {
-            <app-admin-users />
+            <app-admin-users [users]="users" [token]="token" [usersCount]="usersCount" [fetchUsers]="fetchUsers" />
             }
         </div>
     </div>

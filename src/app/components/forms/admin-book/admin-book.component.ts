@@ -13,7 +13,7 @@ import { AuthorService } from '../../../services/author/author.service';
 import Author from '../../../interfaces/author';
 import { CategoryService } from '../../../services/category/category.service';
 import { Category } from '../../../interfaces/category';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-admin-book',
   standalone: true,
@@ -30,7 +30,7 @@ export class AdminBookComponent {
   @Input() books: Book[] = [];
   @Input() categories: Category[] = [];
   @Input() authors: Author[] = [];
-  @Input() token: string|null = null;
+  @Input() token: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -74,7 +74,6 @@ export class AdminBookComponent {
   }
   onSubmit() {
     this.bookForm.markAllAsTouched();
-    console.log(this.bookForm.value.image);
     if (this.bookForm.valid && this.token) {
       const formData = new FormData();
       formData.append('name', this.bookForm.get('name')!.value);
@@ -82,7 +81,7 @@ export class AdminBookComponent {
       formData.append('category', this.bookForm.get('category')!.value._id);
       formData.append('description', this.bookForm.get('description')!.value);
       formData.append('image', this.bookForm.get('image')!.value);
-      console.log(this.token);
+      let updated = false;
       let request$;
       if (this.book) {
         const formValues = this.bookForm.value;
@@ -100,17 +99,29 @@ export class AdminBookComponent {
           this.token,
           this.book._id
         );
+        updated = true;
       } else {
-        request$ = this.bookService.addBook(
-          formData,
-          this.token
-        );
+        request$ = this.bookService.addBook(formData, this.token);
       }
 
-      request$.subscribe(() => {
-        this.bookForm.reset();  
-        this.bookService.updateBooks();
-        this.close();
+      request$.subscribe({
+        next: (response) => {
+          this.bookForm.reset();
+          this.bookService.updateBooks();
+          this.close();
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: `Book ${updated? 'updated': 'added'} successfully.`,
+          });
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: error.message,
+          });
+        },
       });
     }
   }

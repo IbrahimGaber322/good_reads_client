@@ -81,8 +81,6 @@ export class NgbdModalContent {
   }
   handleDelete() {
     this.activeModal.close('Close click');
-    console.log(this.item);
-    console.log(this.type);
     if (this.type === 'Book') {
       this.bookService
         .deleteBook(this.item._id, this.token)

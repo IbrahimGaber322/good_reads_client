@@ -22,6 +22,13 @@ export class CategoryService {
     return this.http.post<Category>(this.apiUrl, data, { headers });
   }
 
+  updateCategory(data: Category, token: string | null) {
+    const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
+    return this.http.patch<Category>(`this.apiUrl/${data._id}`, data, {
+      headers,
+    });
+  }
+
   getCategories(page: number = 1, limit: number = 10) {
     let params = {};
     if (page !== undefined) {

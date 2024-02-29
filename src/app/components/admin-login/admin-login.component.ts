@@ -40,9 +40,7 @@ export class AdminLoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: (data) => {
-          console.log(data);
           if (data.token) {
-            console.log(data.token);
             this.tokenService.setToken(data.token);
             location.reload();
           }

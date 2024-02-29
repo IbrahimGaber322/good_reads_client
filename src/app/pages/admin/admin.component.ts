@@ -44,6 +44,7 @@ export class AdminComponent {
   authors: Author[] = [];
   categories: Category[] = [];
   books: Book[] = [];
+  users: User[] = [];
   token: string | null = null;
   user: User | null = null;
   active: AdminTabs = 'categories';
@@ -52,7 +53,7 @@ export class AdminComponent {
   authorsCount: number = 10;
   categoriesCount: number = 12;
   booksCount: number = 10;
-  userCount: number = 10;
+  usersCount: number = 10;
 
   constructor(
     private modalService: NgbModal,
@@ -83,6 +84,16 @@ export class AdminComponent {
     this.categoryService.categoryUpdated$.subscribe(() =>
       this.fetchCategories()
     );
+
+    this.fetchUsers();
+    this.userService.userUpdated$.subscribe(() => this.fetchUsers());
+  };
+
+  fetchUsers = (page: number = 1, limit: number = 10) => {
+    this.userService.getAllUsers(this.token, page, limit).subscribe((data) => {
+      this.users = data.users;
+      this.usersCount = data.usersCount;
+    });
   };
 
   fetchCategories = (page: number = 1, limit: number = 10) => {
@@ -91,15 +102,15 @@ export class AdminComponent {
       this.categoriesCount = data.categoriesCount;
     });
   };
-  fetchBooks() {
-    this.bookService.getAllBooks().subscribe((data) => {
+  fetchBooks = (page: number = 1, limit: number = 10) => {
+    this.bookService.getAllBooks(page, limit).subscribe((data) => {
       this.books = data.books;
       this.booksCount = data.booksCount;
     });
-  }
+  };
 
-  fetchAuthors() {
-    this.authorService.getAuthors().subscribe((data) => {
+  fetchAuthors(page: number = 1, limit: number = 10) {
+    this.authorService.getAuthors(page, limit).subscribe((data) => {
       this.authors = data.authors;
       this.authorsCount = data.authorsCount;
     });
