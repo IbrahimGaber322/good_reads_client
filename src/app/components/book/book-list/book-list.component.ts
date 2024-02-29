@@ -4,12 +4,12 @@ import { BookService } from '../../../services/book/book.service';
 import { Book } from '../../../interfaces/book';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from '../../navbar/navbar.component';
-import { PaginationComponent } from '../../pagination/pagination.component';
+
 
 @Component({
   selector: 'app-book-list',
   standalone: true,
-  imports: [BookCardComponent, PaginationComponent],
+  imports: [BookCardComponent],
   templateUrl: './book-list.component.html',
   styleUrl: './book-list.component.css',
 })

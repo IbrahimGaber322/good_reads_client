@@ -4,12 +4,11 @@ import { CategoryService } from './../../../services/category/category.service';
 import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { Category } from '../../../interfaces/category';
-import { PaginationComponent } from '../../pagination/pagination.component';
 
 @Component({
   selector: 'app-category-list',
   standalone: true,
-  imports: [CategoryCardComponent, NgFor, PaginationComponent],
+  imports: [CategoryCardComponent, NgFor],
   templateUrl: './category-list.component.html',
   styleUrl: './category-list.component.css',
 })

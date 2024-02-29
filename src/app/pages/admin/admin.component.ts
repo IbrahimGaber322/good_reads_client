@@ -18,7 +18,6 @@ import { AdminLoginComponent } from '../../components/admin-login/admin-login.co
 import { BookService } from '../../services/book/book.service';
 import { CategoryService } from '../../services/category/category.service';
 import { AuthorService } from '../../services/author/author.service';
-import { PaginationComponent } from '../../components/pagination/pagination.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgFor } from '@angular/common';
 @Component({
@@ -33,7 +32,6 @@ import { NgFor } from '@angular/common';
     AdminAuthorComponent,
     AdminCategoryComponent,
     AdminLoginComponent,
-    PaginationComponent,
     NgxPaginationModule,
     NgFor,
   ],
