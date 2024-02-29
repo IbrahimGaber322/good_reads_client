@@ -4,36 +4,47 @@ import { CategoryService } from './../../../services/category/category.service';
 import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { Category } from '../../../interfaces/category';
-import { PaginationComponent } from '../../pagination/pagination.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PagingConfig } from '../../../interfaces/paging-config';
 
 @Component({
   selector: 'app-category-list',
   standalone: true,
-  imports: [CategoryCardComponent, NgFor, PaginationComponent],
+  imports: [CategoryCardComponent, NgFor, NgxPaginationModule],
   templateUrl: './category-list.component.html',
   styleUrl: './category-list.component.css',
 })
 export class CategoryListComponent {
   categories!: Category[];
+  categoryCount!: number;
+
+  
+  pagingConfig: PagingConfig = {} as PagingConfig;
   currentPage: number = 1;
+  itemsPerPage: number = 5;
+
+  onTableDataChange(event: any) {
+    this.pagingConfig.currentPage = event;
+    this.fetchcategories(event, this.itemsPerPage);
+  }
 
   constructor(
-    private CategoryService: CategoryService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private CategoryService: CategoryService,) {}
   ngOnInit(): void {
-    this.currentPage = this.activatedRoute.snapshot.queryParams['page'] || 1;
-    this.loadCategories(this.currentPage);
+    this.pagingConfig = {
+      itemsPerPage: this.itemsPerPage,
+      currentPage: this.currentPage,
+      totalItems: this.categoryCount,
+    };
+    this.fetchcategories();
   }
 
-  loadCategories(page: number): void {
-    this.CategoryService.getCategories(page, 5).subscribe((data) => {
-      this.categories = data.categories;
+  fetchcategories(page: number = 1, limit: number = 5) {
+      this.CategoryService.getCategories( page, limit).subscribe((data) => {
+        this.categories = data.categories;     
+        this.categoryCount = data.categoriesCount;
+
+        console.log(data)
     });
-  }
-
-  onPaginationChange(page: number): void {
-    this.currentPage = page;
-    this.loadCategories(this.currentPage);
   }
 }

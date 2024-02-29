@@ -3,15 +3,15 @@
     <div class="row">
       <div class="col-md-3">
         <div>
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20%2810%29.webp"
+          <img [src]="authorDetails?.image"
             class="img-fluid shadow-1" alt="author avatar"  />
         </div>
       </div>
       <div class="col-md-9">
         <div>
-         <p class="fw-bold lead mb-2"><strong>{{authorDetails.firstName}} {{authorDetails.lastName}}</strong></p>
-         <p class="lead mb-2">{{authorDetails.dob}}</p>
-         <p class=" fw-light mb-4">{{authorDetails.bio}}</p>
+         <p class="fw-bold lead mb-2"><strong>{{authorDetails?.firstName}} {{authorDetails?.lastName}}</strong></p>
+         <p class="lead mb-2">{{authorDetails?.dob}}</p>
+         <p class=" fw-light mb-4">{{authorDetails?.bio}}</p>
         </div>
       </div>
   </div>

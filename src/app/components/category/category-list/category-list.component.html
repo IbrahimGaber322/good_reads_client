@@ -1,13 +1,17 @@
-<div class="container d-flex align-items-center mt-5">
+<div class="container d-flex align-items-center mt-5" >
   <div class="text-center ">
     <h1>Categories</h1>
     <hr />
     <div class="row justify-content-center">
-        @for (category of categories; track category._id) {
-            <div class="col-md-3">
+          
+      <div class="col-md-3" *ngFor="let category of categories | paginate : pagingConfig; let i = index">
                 <app-category-card [mycategory]="category"></app-category-card>
             </div>
-        }
+        
+    </div>
+    <div class="d-flex justify-content-center mt-auto">
+      <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
     </div>
   </div>
 </div>

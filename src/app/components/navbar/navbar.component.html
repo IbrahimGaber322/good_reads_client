@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-secondary fixed-top mb-lg-5">
+<!-- <nav class="navbar navbar-expand-lg bg-secondary fixed-top mb-lg-5">
     <div class="container-fluid">
       <a class="navbar-brand text-white" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}"><i class="fa-solid fa-house"></i>Good Reads</a>
   
@@ -21,4 +21,74 @@
       </div>
     </div>
   </nav>
+   -->
+   <nav class="navbar navbar-expand-lg navbar-light bg">
+    <a class="navbar-brand" routerLink="/user" style="position: relative">
+      <img src="assets/logo.png" alt="" class="navbar-logo" />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
   
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            aria-current="page"routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/categories" routerLinkActive="active"
+            >Categories</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/authors" routerLinkActive="active"
+            >Authors</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/books" routerLinkActive="active"
+            >Books</a
+          >
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0 mx-auto">
+        <div class="input-group">
+          <input
+            class="form-control mr-sm-2 custom-search"
+            type="search"
+            placeholder="tab to search"
+            aria-label="Search"
+          />
+          <div class="input-group-append">
+            <button class="btn my-2 my-sm-0 custom-button" type="submit">
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item mr-3">
+          <a class="nav-link" routerLink="/user"
+            ><i class="fa fa-user-circle"></i>
+            <img src="assets/user.png" alt="" class="u-ico"
+          /></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/user"
+            ><i class="fa fa-sign-out"></i>
+            <img src="assets/logout.png" alt="" class="u-ico"
+          /></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
