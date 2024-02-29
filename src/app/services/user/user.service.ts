@@ -61,6 +61,7 @@ export class UserService {
     bookId: string,
     newStatus: string,
     token: string | null
+    
   ): Observable<User> {
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
     const body = {
@@ -68,5 +69,9 @@ export class UserService {
       newStatus,
     };
     return this.http.patch<User>(`${this.apiUrl}/books`, body, { headers });
+  }
+  addUserBook(bookId:string,token:string | null){
+    const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
+    return this.http.post<User>(`${this.apiUrl}/books`, {bookId}, { headers });
   }
 }

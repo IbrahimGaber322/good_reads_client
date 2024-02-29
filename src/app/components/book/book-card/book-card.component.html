@@ -3,7 +3,7 @@
   class="card shadow-sm border-0 rounded mb-4"
   (click)="redirctToDetails(mybook._id)"
 >
-  <div class="card-body p-0 " style="height: 425px;">
+  <div class="card-body p-0 " style="height: 470px;">
     <img
       [src]="mybook.image"
       alt=""
@@ -18,6 +18,9 @@
         <strong>Author Name: </strong><a [routerLink]="['/authors', mybook.author._id]">{{ mybook.author.firstName }} {{ mybook.author.lastName }}</a> <br>
         <strong>Category: </strong><a [routerLink]="['/categories', mybook.category._id]">{{ mybook.category.name }} </a>
       </p>
+    @if(bookExist()){
+      <button class="btn btn-primary" (click)="addBook(mybook._id,$event)">Add Book</button>
+    }
     </div>
     </div>
   </div>
