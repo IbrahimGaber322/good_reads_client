@@ -42,7 +42,7 @@ export class AdminLoginComponent {
         next: (data) => {
           if (data.token) {
             this.tokenService.setToken(data.token);
-            location.reload();
+            this.router.navigate(['/'])
           }
         },
         error: (err) => {

@@ -9,11 +9,12 @@ import { BookService } from '../../services/book/book.service';
 import { Book } from '../../interfaces/book';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PagingConfig } from '../../interfaces/paging-config';
+import { LoggedOutHomeComponent } from '../../components/logged-out-home/logged-out-home.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, NgFor, FormsModule, NgxPaginationModule],
+  imports: [NavbarComponent, NgFor, FormsModule, NgxPaginationModule, LoggedOutHomeComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

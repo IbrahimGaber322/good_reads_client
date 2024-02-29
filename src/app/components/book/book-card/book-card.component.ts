@@ -17,7 +17,7 @@ export class BookCardComponent {
   @Input() mybook!: Book;
   token: string | null = null;
   user!: User;
-  userBookIds!: string[];
+  userBookIds?: string[];
   showDescription: boolean = false;
   constructor(
     private router: Router,
@@ -49,6 +49,6 @@ export class BookCardComponent {
     event.stopPropagation();
   }
   bookExist() {
-    return this.userBookIds.some((id) => id == this.mybook._id);
+    return this.userBookIds?.some((id) => id == this.mybook._id);
   }
 }
