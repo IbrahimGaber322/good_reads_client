@@ -2,12 +2,13 @@
     <!-- Second Row [Team]-->
     <h2 class="font-weight-bold mb-2">Our Authors</h2>
     <div class="row pb-5 mb-4">
-        @for (author of authors; track author._id) {
-            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-            <app-author-card [myauthor]="author"></app-author-card> 
-        </div>
-        }
+    <div class="col-lg-3 col-md-6 mb-4 mb-lg-0"*ngFor="let author of authors | paginate : pagingConfig; let i = index">
+    <app-author-card [myauthor]="author"></app-author-card>         
    </div>
+   <div class="d-flex justify-content-center mt-3">
+    <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
+  </div>
 </div>
 
 
