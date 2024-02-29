@@ -19,12 +19,13 @@ export class BookDetailsComponent {
  
     bookDetails!:Book
     token: string | null = null;
-
+    userBooks!:Book
     constructor(private activeroute:ActivatedRoute,private bookRequests:BookService,private userService:UserService,private tokenService:TokenService ){}
     
     ngOnInit(){
       const id=this.activeroute.snapshot.params['id']
       this.bookRequests.getBookDetails(id).subscribe((res)=>this.bookDetails = res)
+      this.userService.getUserBooks(this.token)
     }
   
     updateBookStatus(bookId: string, newStatus: string = '') {
