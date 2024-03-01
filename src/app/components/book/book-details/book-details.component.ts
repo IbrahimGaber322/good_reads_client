@@ -31,10 +31,9 @@ export class BookDetailsComponent {
       const id=this.activeroute.snapshot.params['id']
       this.bookRequests.getBookDetails(id).subscribe((res)=>{this.bookDetails = res;console.log(res )})
     }
-    addReview(bookId:string,reviewText: string){
+    addReview(bookId:string,reviewText:string){
     console.log(reviewText)
     console.log(bookId)
      this.reviewservice.addBookReview(bookId,reviewText,this.token) 
   }  
-
 }
