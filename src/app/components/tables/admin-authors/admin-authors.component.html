@@ -14,11 +14,11 @@
         <tr *ngFor="let author of authors | paginate : pagingConfig; let i = index">
             <th scope="row">{{author.id}}</th>
             <td class="w-25">
-                <img [src]="author.image" class="img-fluid img-thumbnail" [alt]="author.firstName+'.img'">
+                <img height="300" width="200" [src]="author.image" class="img-fluid img-thumbnail" [alt]="author.firstName+'.img'">
             </td>
             <td>{{author.firstName}}</td>
             <td>{{author.lastName}}</td>
-            <td>{{author.dob}}</td>
+            <td>{{author.dob | date: 'mediumDate'}}</td>
             <td>
                 <div class="d-flex w-100 h-100 justify-content-around pt-3 align-items-center">
                     <i (click)="edit(author)" class="fa-solid fa-lg fa-pencil cursor-pointer text-primary me-3"></i>

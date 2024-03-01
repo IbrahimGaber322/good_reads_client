@@ -14,7 +14,7 @@
         <tr *ngFor="let book of books | paginate : pagingConfig; let i = index">
             <th scope="row">{{book.id}}</th>
             <td class="w-25">
-                <img [src]="book.image" class="img-fluid img-thumbnail" [alt]="book.name+'.img'">
+                <img height="300" width="200" [src]="book.image" class="img-fluid img-thumbnail" [alt]="book.name+'.img'">
             </td>
             <td>{{book.name}}</td>
             <td>{{book.category.name}}</td>

@@ -49,9 +49,8 @@ export class AdminLoginComponent {
           Swal.fire({
             icon: 'error',
             title: 'Error!',
-            text: err.message,
+            text: err.error.message,
           });
-          this.router.navigate(['/']);
         },
       });
     }

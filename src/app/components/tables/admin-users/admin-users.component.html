@@ -15,7 +15,7 @@
         <tr *ngFor="let user of users | paginate : pagingConfig; let i = index">
             <th scope="row">{{user.id}}</th>
             <td class="w-25">
-                <img [src]="user.image" class="img-fluid img-thumbnail" [alt]="user.firstName+'.img'">
+                <img height="300" width="200" [src]="user.image" class="img-fluid img-thumbnail" [alt]="user.firstName+'.img'">
             </td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>

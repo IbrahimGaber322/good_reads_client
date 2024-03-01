@@ -4,13 +4,13 @@ import Author from '../../../interfaces/author';
 import { Category } from '../../../interfaces/category';
 import { AuthorService } from '../../../services/author/author.service';
 import { PagingConfig } from '../../../interfaces/paging-config';
-import { NgFor } from '@angular/common';
+import { DatePipe, NgFor } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-admin-authors',
   standalone: true,
-  imports: [AdminDeleteComponent, NgFor, NgxPaginationModule],
+  imports: [AdminDeleteComponent, NgFor, NgxPaginationModule, DatePipe],
   templateUrl: './admin-authors.component.html',
   styleUrl: './admin-authors.component.css',
 })
