@@ -7,7 +7,7 @@ import { User } from '../../interfaces/user';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/users';
+  private apiUrl = 'https://good-reads-server.onrender.com/users';
 
   constructor(private http: HttpClient) {}
 

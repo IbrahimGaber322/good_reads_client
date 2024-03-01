@@ -8,7 +8,7 @@ import { Book } from '../../interfaces/book';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:5000/users';
+  private apiUrl = 'https://good-reads-server.onrender.com/users';
   constructor(private http: HttpClient) {}
 
   private userUpdatedSource = new Subject<void>();

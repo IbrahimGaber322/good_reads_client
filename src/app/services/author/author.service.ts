@@ -7,7 +7,7 @@ import Author from '../../interfaces/author';
   providedIn: 'root',
 })
 export class AuthorService {
-  private apiUrl = 'http://localhost:5000/authors';
+  private apiUrl = 'https://good-reads-server.onrender.com/authors';
   private authorUpdatedSource = new Subject<void>();
 
   authorUpdated$ = this.authorUpdatedSource.asObservable();

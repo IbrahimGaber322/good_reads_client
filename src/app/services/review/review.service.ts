@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ReviewService {
-  private apiUrl = 'http://localhost:5000/reviews';
+  private apiUrl = 'https://good-reads-server.onrender.com/reviews';
   
   constructor(private http: HttpClient) {}
   

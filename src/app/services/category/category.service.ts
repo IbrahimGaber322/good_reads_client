@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class CategoryService {
-  private apiUrl = 'http://localhost:5000/categories';
+  private apiUrl = `https://good-reads-server.onrender.com/categories`;
   constructor(private http: HttpClient) {}
   private categoryUpdatedSource = new Subject<void>();
 

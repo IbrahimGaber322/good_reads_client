@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class BookService {
-  private apiUrl = 'http://localhost:5000/books';
+  private apiUrl = 'https://good-reads-server.onrender.com/books';
   private bookUpdatedSource = new Subject<void>();
 
   bookUpdated$ = this.bookUpdatedSource.asObservable();
