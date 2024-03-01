@@ -1,5 +1,7 @@
 <!-- user-dashboard.component.html -->
-
+@if(!user){
+<app-logged-out-home />
+}@else{
 <div class="container">
   <div class="vertical-menu">
     <nav class="nav flex-column">
@@ -66,3 +68,4 @@
     </div>
   </div>
 </div>
+}

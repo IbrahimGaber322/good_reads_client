@@ -23,8 +23,8 @@ export class AuthService {
 
   signup(data: Object): Observable<User> {
     console.log(data)
-    const headers = new HttpHeaders().set('Content-Type', 'multipart/form-data');
-    return this.http.post<User>(this.apiUrl, data,{headers});
+  
+    return this.http.post<User>(this.apiUrl, data);
   } 
 
   confirm(token: String): Observable<{ token: string }> {

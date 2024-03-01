@@ -11,7 +11,7 @@ import { UserService } from '../services/user/user.service';
 @Injectable({
   providedIn: 'root',
 })
-export class UserGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(
     private tokenService: TokenService,
     private userService: UserService,
@@ -21,16 +21,20 @@ export class UserGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
     this.tokenService.authToken$.subscribe((token) => {
       if (!token) {
-        return true;
+        this.router.navigate(['/login']);
+        return false;
       }
       this.userService.getUser(token).subscribe((user) => {
-        if (user) {
-          return false;
-        } else {
+        if (user?.admin) {
+          console.log(user);
           return true;
+        } else {
+          this.tokenService.clearToken();
+          this.router.navigate(['/login']);
+          return false;
         }
       });
-      return true;
+      return false;
     });
   }
 }
