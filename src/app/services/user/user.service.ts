@@ -81,4 +81,8 @@ export class UserService {
   confirmUser(token: string | null) {
     return this.http.get(`${this.apiUrl}/confirm/${token}`);
   }
+  makeAdmin(userId: String, admin: boolean, token: string | null) {
+    const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
+    return this.http.patch(`${this.apiUrl}`, { userId, admin }, { headers });
+  }
 }

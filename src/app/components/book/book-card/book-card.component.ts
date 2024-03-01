@@ -5,6 +5,7 @@ import { NgIf } from '@angular/common';
 import { UserService } from '../../../services/user/user.service';
 import { TokenService } from '../../../services/token/token.service';
 import { User } from '../../../interfaces/user';
+import { BookService } from '../../../services/book/book.service';
 
 @Component({
   selector: 'app-book-card',
@@ -22,14 +23,15 @@ export class BookCardComponent {
   constructor(
     private router: Router,
     private userService: UserService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private bookService: BookService
   ) {}
   ngOnInit() {
     if (typeof localStorage !== 'undefined') {
       this.tokenService.authToken$.subscribe((token) => (this.token = token));
     }
     this.getuser();
-    console.log("input book in book card:", this.mybook)
+    console.log('input book in book card:', this.mybook);
   }
 
   redirctToDetails(id: string) {
@@ -46,9 +48,14 @@ export class BookCardComponent {
     this.userService
       .addUserBook(bookId, this.token)
       .subscribe((res) => console.log(res));
+    this.bookService.updateBooks();
     event.stopPropagation();
   }
   bookExist() {
-    return this.userBookIds?.some((id) => id == this.mybook._id);
+    if (this.user) {
+      return this.userBookIds?.some((id) => id == this.mybook._id);
+    } else {
+      return true;
+    }
   }
 }

@@ -4,7 +4,8 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PagingConfig } from '../../../interfaces/paging-config';
 import { NgFor } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { UserService } from '../../../services/user/user.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-admin-users',
   standalone: true,
@@ -38,6 +39,7 @@ export class AdminUsersComponent {
       backdrop: 'static',
     });
     modalRef.componentInstance.user = user;
+    modalRef.componentInstance.token = this.token;
   }
 }
 
@@ -65,9 +67,30 @@ export class AdminUsersComponent {
 })
 export class NgbdModalContent {
   @Input() user!: User;
-  constructor(private activeModal: NgbActiveModal) {}
+  @Input() token!: string | null;
+  constructor(
+    private activeModal: NgbActiveModal,
+    private userService: UserService
+  ) {}
   close = () => this.activeModal.close('Close click');
   handleAccept() {
+    this.userService.makeAdmin(this.user._id, true, this.token).subscribe({
+      next: (data: any) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: data.message,
+        });
+        this.userService.updateUsers();
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: err.error.message,
+        });
+      },
+    });
     this.activeModal.close('Close click');
   }
 }

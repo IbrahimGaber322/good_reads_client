@@ -29,6 +29,7 @@ export class BookListComponent {
 
   ngOnInit() {
     this.fetchbooks();
+    this.bookService.bookUpdated$.subscribe(()=>this.fetchbooks())
   }
   fetchbooks(page: number = 1, limit: number = 5) {
     this.bookService.getAllBooks(page, limit).subscribe((data) => {
