@@ -5,11 +5,12 @@ import Author from '../../../interfaces/author';
 import { AuthorBooksCardComponent } from '../author-books-card/author-books-card.component';
 import { BookService } from '../../../services/book/book.service';
 import { Book } from '../../../interfaces/book';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-author-details',
   standalone: true,
-  imports: [AuthorBooksCardComponent],
+  imports: [AuthorBooksCardComponent,NgIf],
   templateUrl: './author-details.component.html',
   styleUrl: './author-details.component.css'
 })

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Book } from '../../../interfaces/book';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-author-books-card',
@@ -10,4 +11,8 @@ import { Book } from '../../../interfaces/book';
 })
 export class AuthorBooksCardComponent {
   @Input() myauthorbook!:Book
+  constructor(    private router: Router,){}
+  redirctTobook(id: string) {
+    this.router.navigate(['books', id]);
+  }
 }
