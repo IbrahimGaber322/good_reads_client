@@ -13,8 +13,7 @@ export class AuthorService {
   authorUpdated$ = this.authorUpdatedSource.asObservable();
   constructor(private http: HttpClient) {}
 
-  getAuthors(page: number = 1, limit: number = 10) {
-    let params = {};
+  getAuthors(page: number = 1, limit: number = 10, params:any={}) {
     if (page !== undefined) {
       params = { ...params, page: page.toString() };
     }

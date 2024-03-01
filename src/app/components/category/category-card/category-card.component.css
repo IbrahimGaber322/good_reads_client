@@ -3,7 +3,7 @@
 .card-circle{
     text-align:center;
      margin-top:30px;
-     background:#27496D;    
+     background:#131921;    
      border:10px solid transparent;
      color:#fff;
      Font-family: Montserrat;
@@ -31,7 +31,7 @@
  
  
  .card-circle:hover{
-    border:10px solid #00A8CC;
+    border:10px solid #FEBD69;
 }
  .card-circle:hover i {
    text-shadow: 0px -1px 10px #00A8CC;

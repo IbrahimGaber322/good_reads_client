@@ -59,6 +59,10 @@ export class NavbarComponent {
           });
           break;
         default:
+          this.router.navigate(['/books'], {
+            queryParams: { name: searchTerm.trim() },
+          });
+          break;
       }
     }
   }

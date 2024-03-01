@@ -29,8 +29,7 @@ export class CategoryService {
     });
   }
 
-  getCategories(page: number = 1, limit: number = 10) {
-    let params = {};
+  getCategories(page: number = 1, limit: number = 10, params:any={}) {
     if (page !== undefined) {
       params = { ...params, page: page.toString() };
     }

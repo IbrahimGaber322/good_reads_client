@@ -1,4 +1,8 @@
-.app-main-container{
-    min-height: 100vh ;
-    height: 100%;
+.router {
+  min-height: 100vh;
+  padding-top: 86px;
+}
+
+.my-container {
+  min-height: 100vh;
 }

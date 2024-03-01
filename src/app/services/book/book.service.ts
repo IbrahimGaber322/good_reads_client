@@ -17,7 +17,6 @@ export class BookService {
     this.bookUpdatedSource.next();
   }
   getAllBooks(page: number = 1, limit: number = 10, params?: any) {
-    console.log(params)
     if (page !== undefined) {
       params = { ...params, page: page.toString() };
     }

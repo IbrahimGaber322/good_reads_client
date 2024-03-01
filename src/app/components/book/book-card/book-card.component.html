@@ -1,13 +1,13 @@
 <!-- Card-->
 <div
-  class="card shadow-sm border-0 rounded mb-4"
+  class="card shadow-sm border-0 rounded mb-4 cursor-pointer"
   (click)="redirctToDetails(mybook._id)"
 >
   <div class="card-body p-0 " style="height: 470px;">
     <img
       [src]="mybook.image"
       alt=""
-      class="w-100 card-img-top"
+      class="w-100 card-img-top object-fit-contain"
     />
     <div class="p-4">
       <h5 class="card-title">{{ mybook.name }}</h5>

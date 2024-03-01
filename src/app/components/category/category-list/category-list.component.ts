@@ -24,14 +24,17 @@ export class CategoryListComponent {
     totalItems: 0,
   };
 
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.fetchCategories(1, 5, params);
+    });
     this.fetchCategories();
   }
 
-  fetchCategories(page: number = 1, limit: number = 5) {
-    this.categoryService.getCategories(page, limit).subscribe((data) => {
+  fetchCategories(page: number = 1, limit: number = 5, params:any={}) {
+    this.categoryService.getCategories(page, limit, params).subscribe((data) => {
       this.categories = data.categories;
       this.categoryCount = data.categoriesCount;
       this.pagingConfig = {
