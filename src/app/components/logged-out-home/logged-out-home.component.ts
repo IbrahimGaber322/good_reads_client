@@ -48,6 +48,9 @@ export class LoggedOutHomeComponent {
   ngOnInit() {
     this.bookService
       .getAllBooks(1, 3)
-      .subscribe((res) => (this.books = res.books));
+      .subscribe({
+        next: (res) => (this.books = res.books),
+        error: console.log,
+      });
   }
 }

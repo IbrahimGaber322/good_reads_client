@@ -100,8 +100,11 @@ export class HomeComponent {
   ) {
     this.userService
       .updateUserBookStatus(bookId, status, this.token)
-      .subscribe((res: any) => {
-        this.onSelectStat(status);
+      .subscribe({
+        next: () => {
+          this.onSelectStat(status);
+        },
+        error: console.log,
       });
   }
   goToBookDetails(bookId: any) {

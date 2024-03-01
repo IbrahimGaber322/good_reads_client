@@ -50,7 +50,10 @@ export class BookCardComponent {
   addBook(bookId: string, event: Event) {
     this.userService
       .addUserBook(bookId, this.token)
-      .subscribe((res) => this.bookService.updateBooks());
+      .subscribe({
+        next: (res) => this.bookService.updateBooks(),
+        error: console.log,
+      });
     event.stopPropagation();
   }
   bookExist() {

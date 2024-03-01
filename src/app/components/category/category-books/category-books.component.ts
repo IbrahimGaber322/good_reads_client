@@ -20,8 +20,11 @@ export class CategoryBooksComponent {
   ) {}
   ngOnInit() {
     const id = this.activeroute.snapshot.params['id'];
-    this.bookRequests.getAllBooks(1, 10, { category: id }).subscribe((res) => {
-      this.categoryBooks = res.books;
+    this.bookRequests.getAllBooks(1, 10, { category: id }).subscribe({
+      next: (res) => {
+        this.categoryBooks = res.books;
+      },
+      error: console.log,
     });
   }
 }

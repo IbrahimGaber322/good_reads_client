@@ -10,20 +10,33 @@ import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-author-details',
   standalone: true,
-  imports: [AuthorBooksCardComponent,NgIf],
+  imports: [AuthorBooksCardComponent, NgIf],
   templateUrl: './author-details.component.html',
-  styleUrl: './author-details.component.css'
+  styleUrl: './author-details.component.css',
 })
 export class AuthorDetailsComponent {
- authorDetails!:Author
- authorBooks!:Book[]
+  authorDetails!: Author;
+  authorBooks!: Book[];
 
-  constructor(private ActivatedRoute:ActivatedRoute,private authorService:AuthorService,private bookRequests:BookService ){}
+  constructor(
+    private ActivatedRoute: ActivatedRoute,
+    private authorService: AuthorService,
+    private bookRequests: BookService
+  ) {}
 
-  ngOnInit(){
-    const id=this.ActivatedRoute.snapshot.params['id']
-   this.authorService.getAuthorDetails(id).subscribe((res:Author)=>this.authorDetails=res) 
-   this.bookRequests.getAuthorBooks(id).subscribe((res:any)=>this.authorBooks = res.books)
+  ngOnInit() {
+    const id = this.ActivatedRoute.snapshot.params['id'];
+    this.authorService
+      .getAuthorDetails(id)
+      .subscribe({
+        next: (res: Author) => (this.authorDetails = res),
+        error: console.log,
+      });
+    this.bookRequests
+      .getAuthorBooks(id)
+      .subscribe({
+        next: (res: any) => (this.authorBooks = res.books),
+        error: console.log,
+      });
   }
 }
-  

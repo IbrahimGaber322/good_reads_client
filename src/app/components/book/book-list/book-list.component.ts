@@ -36,14 +36,17 @@ export class BookListComponent {
     this.bookService.bookUpdated$.subscribe(() => this.fetchbooks());
   }
   fetchbooks(page: number = 1, limit: number = 5, params: any = {}) {
-    this.bookService.getAllBooks(page, limit, params).subscribe((data) => {
-      this.books = data.books;
-      this.bookCount = data.booksCount;
-      this.pagingConfig = {
-        itemsPerPage: limit,
-        currentPage: page,
-        totalItems: this.bookCount,
-      };
+    this.bookService.getAllBooks(page, limit, params).subscribe({
+      next: (data) => {
+        this.books = data.books;
+        this.bookCount = data.booksCount;
+        this.pagingConfig = {
+          itemsPerPage: limit,
+          currentPage: page,
+          totalItems: this.bookCount,
+        };
+      },
+      error: console.log,
     });
   }
   onTableDataChange(page: number) {

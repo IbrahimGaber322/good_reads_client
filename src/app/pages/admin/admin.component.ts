@@ -93,29 +93,41 @@ export class AdminComponent {
   };
 
   fetchUsers = (page: number = 1, limit: number = 10) => {
-    this.userService.getAllUsers(this.token, page, limit).subscribe((data) => {
-      this.users = data.users;
-      this.usersCount = data.usersCount;
+    this.userService.getAllUsers(this.token, page, limit).subscribe({
+      next: (data) => {
+        this.users = data.users;
+        this.usersCount = data.usersCount;
+      },
+      error: console.log,
     });
   };
 
   fetchCategories = (page: number = 1, limit: number = 10) => {
-    this.categoryService.getCategories(page, limit).subscribe((data) => {
-      this.categories = data.categories;
-      this.categoriesCount = data.categoriesCount;
+    this.categoryService.getCategories(page, limit).subscribe({
+      next: (data) => {
+        this.categories = data.categories;
+        this.categoriesCount = data.categoriesCount;
+      },
+      error: console.log,
     });
   };
   fetchBooks = (page: number = 1, limit: number = 10) => {
-    this.bookService.getAllBooks(page, limit).subscribe((data) => {
-      this.books = data.books;
-      this.booksCount = data.booksCount;
+    this.bookService.getAllBooks(page, limit).subscribe({
+      next: (data) => {
+        this.books = data.books;
+        this.booksCount = data.booksCount;
+      },
+      error: console.log,
     });
   };
 
   fetchAuthors(page: number = 1, limit: number = 10) {
-    this.authorService.getAuthors(page, limit).subscribe((data) => {
-      this.authors = data.authors;
-      this.authorsCount = data.authorsCount;
+    this.authorService.getAuthors(page, limit).subscribe({
+      next: (data) => {
+        this.authors = data.authors;
+        this.authorsCount = data.authorsCount;
+      },
+      error: console.log,
     });
   }
 

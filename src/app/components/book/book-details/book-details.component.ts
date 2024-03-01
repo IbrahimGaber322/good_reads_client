@@ -32,13 +32,16 @@ export class BookDetailsComponent {
       this.tokenService.authToken$.subscribe((token) => (this.token = token));
     }
     const id = this.activeroute.snapshot.params['id'];
-    this.bookRequests.getBookDetails(id).subscribe((res) => {
-      this.bookDetails = res;
+    this.bookRequests.getBookDetails(id).subscribe({
+      next: (res) => {
+        this.bookDetails = res;
+      },
+      error: console.log,
     });
   }
   addReview(bookId: string, reviewText: string) {
     this.reviewservice
       .addBookReview(bookId, reviewText, this.token)
-      .subscribe();
+      .subscribe({ next: console.log, error: console.log });
   }
 }

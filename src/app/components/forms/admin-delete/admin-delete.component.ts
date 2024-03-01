@@ -81,7 +81,7 @@ export class NgbdModalContent {
   ) {}
 
   ngOnInit() {
-    this.tokenService.authToken$.subscribe((token) => (this.token = token));
+    this.tokenService.authToken$.subscribe({next:(token) => (this.token = token), error:console.log});
   }
   handleDelete() {
     this.activeModal.close('Close click');

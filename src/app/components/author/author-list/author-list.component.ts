@@ -35,14 +35,17 @@ export class AuthorListComponent {
     this.fetchauthors();
   }
   fetchauthors(page: number = 1, limit: number = 5, params: any = {}) {
-    this.authorService.getAuthors(page, limit, params).subscribe((data) => {
-      this.authors = data.authors;
-      this.authorCount = data.authorsCount;
-      this.pagingConfig = {
-        itemsPerPage: limit,
-        currentPage: page,
-        totalItems: this.authorCount,
-      };
+    this.authorService.getAuthors(page, limit, params).subscribe({
+      next: (data) => {
+        this.authors = data.authors;
+        this.authorCount = data.authorsCount;
+        this.pagingConfig = {
+          itemsPerPage: limit,
+          currentPage: page,
+          totalItems: this.authorCount,
+        };
+      },
+      error: console.log,
     });
   }
   onTableDataChange(page: number) {
