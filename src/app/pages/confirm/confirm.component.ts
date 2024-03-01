@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { UserService } from '../../services/user/user.service';
@@ -17,7 +17,8 @@ export class ConfirmComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private userService: UserService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +37,7 @@ export class ConfirmComponent implements OnInit {
       next: (response: any) => {
         this.tokenService.setToken(response.token);
         Swal.fire('Success', response.message, 'success');
+        this.router.navigate(['/']);
       },
       error: (error) => {
         Swal.fire('Error', error.message, 'error');

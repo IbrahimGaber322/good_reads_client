@@ -10,7 +10,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { TokenService } from '../../services/token/token.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-admin-login',
   standalone: true,
@@ -28,7 +28,7 @@ export class AdminLoginComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: TokenService,
-    private router:Router
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required]],
@@ -42,12 +42,16 @@ export class AdminLoginComponent {
         next: (data) => {
           if (data.token) {
             this.tokenService.setToken(data.token);
-            this.router.navigate(['/'])
+            this.router.navigate(['/']);
           }
         },
         error: (err) => {
-          console.error('Error logging in:', err);
-          // Handle the error, e.g., show an error message to the user
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: err.message,
+          });
+          this.router.navigate(['/']);
         },
       });
     }

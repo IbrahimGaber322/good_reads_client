@@ -21,18 +21,16 @@ export class UserGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
     this.tokenService.authToken$.subscribe((token) => {
       if (!token) {
-       
-        return false;
+        return true;
       }
       this.userService.getUser(token).subscribe((user) => {
         if (user) {
-          alert("user exist")
-          return true;
-        } else {
           return false;
+        } else {
+          return true;
         }
       });
-      return false;
+      return true;
     });
   }
 }
