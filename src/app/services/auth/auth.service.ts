@@ -21,7 +21,7 @@ export class AuthService {
     );
   }
 
-  signup(data: FormData): Observable<User> {
+  signup(data: Object): Observable<User> {
     console.log(data)
     const headers = new HttpHeaders().set('Content-Type', 'multipart/form-data');
     return this.http.post<User>(this.apiUrl, data,{headers});

@@ -10,6 +10,7 @@ import { CategoryListComponent } from './components/category/category-list/categ
 import { ReviewsComponent } from './components/book/reviews/reviews.component';
 import { AuthorDetailsComponent } from './components/author/author-details/author-details.component';
 import { CategoryBooksComponent } from './components/category/category-books/category-books.component';
+import { SignupComponent } from './components/signup/signup.component';
 export const routes: Routes = [
 
     {
@@ -64,8 +65,12 @@ export const routes: Routes = [
         title:"reviews",
       
     },
-   
-      {
+    {
+        path:"signup",
+        component:SignupComponent,
+        title:"signup",
+    },
+     {
           path:"**",
           component:NotfoundComponent,
           title:"Not Found"
