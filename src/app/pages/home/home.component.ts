@@ -15,7 +15,14 @@ import { LoggedOutHomeComponent } from '../../components/logged-out-home/logged-
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink,NavbarComponent, NgFor, FormsModule, NgxPaginationModule, LoggedOutHomeComponent],
+  imports: [
+    RouterLink,
+    NavbarComponent,
+    NgFor,
+    FormsModule,
+    NgxPaginationModule,
+    LoggedOutHomeComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -38,16 +45,20 @@ export class HomeComponent {
     private userService: UserService,
     private tokenService: TokenService,
     private bookService: BookService,
-    private router:Router
-    ) {}
+    private router: Router
+  ) {}
   ngOnInit() {
     if (typeof localStorage !== 'undefined') {
       this.tokenService.authToken$.subscribe((token) => (this.token = token));
-      this.userService.getUser(this.token).subscribe((data) => {
-        this.user = data;
+      this.userService.getUser(this.token).subscribe({
+        next: (data) => {
+          this.user = data;
+        },
+        error: (err) => {
+          console.log(err);
+        },
       });
-    
-  }
+    }
     this.pagingConfig = {
       itemsPerPage: this.itemsPerPage,
       currentPage: this.currentPage,
@@ -57,9 +68,8 @@ export class HomeComponent {
   }
 
   fetchUserBooks(page: number = 1, limit: number = 5, params: any = {}) {
-    this.userService
-      .getUserBooks(this.token, page, limit, params)
-      .subscribe((data) => {
+    this.userService.getUserBooks(this.token, page, limit, params).subscribe({
+      next: (data) => {
         this.userBooks = data.books.map((book: any) => ({
           ...book.bookId,
           shelve: book.shelve,
@@ -69,7 +79,11 @@ export class HomeComponent {
         if (params.shelve) {
           this.activeStatus = params.shelve;
         }
-      });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   onSelectStat(shelve: 'All' | 'Want to read' | 'Read' | 'Currently Reading') {
@@ -92,7 +106,7 @@ export class HomeComponent {
   }
   goToBookDetails(bookId: any) {
     this.router.navigate(['books', bookId]);
-    console.log(this.userBooks) 
+    console.log(this.userBooks);
   }
   goToAuthorDetails(authorId: string) {
     this.router.navigate(['authors', authorId]);

@@ -37,9 +37,14 @@ export class BookCardComponent {
     this.router.navigate(['books', id]);
   }
   getuser() {
-    this.userService.getUser(this.token).subscribe((res) => {
-      this.user = res;
-      this.userBookIds = res.books.map((item: any) => item.bookId);
+    this.userService.getUser(this.token).subscribe({
+      next: (res) => {
+        this.user = res;
+        this.userBookIds = res.books.map((item: any) => item.bookId);
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
   addBook(bookId: string, event: Event) {

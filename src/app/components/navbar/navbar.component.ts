@@ -30,8 +30,13 @@ export class NavbarComponent {
   ngOnInit() {
     this.tokenService.authToken$.subscribe((token) => {
       this.token = token;
-      this.userService.getUser(token).subscribe((user) => {
-        this.user = user;
+      this.userService.getUser(token).subscribe({
+        next: (data) => {
+          this.user = data;
+        },
+        error: (err) => {
+          console.log(err);
+        },
       });
       this.userService.updateUsers();
     });

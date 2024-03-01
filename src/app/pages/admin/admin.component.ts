@@ -65,9 +65,14 @@ export class AdminComponent {
   ngOnInit() {
     if (typeof localStorage !== 'undefined') {
       this.tokenService.authToken$.subscribe((token) => (this.token = token));
-      this.userService
-        .getUser(this.token)
-        .subscribe((data) => (this.user = data));
+      this.userService.getUser(this.token).subscribe({
+        next: (data) => {
+          this.user = data;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
     }
     this.fetchData();
   }
