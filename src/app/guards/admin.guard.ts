@@ -26,7 +26,6 @@ export class AdminGuard implements CanActivate {
       }
       this.userService.getUser(token).subscribe((user) => {
         if (user?.admin) {
-          console.log(user);
           return true;
         } else {
           this.tokenService.clearToken();

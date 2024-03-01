@@ -40,14 +40,12 @@ export class BookCardComponent {
     this.userService.getUser(this.token).subscribe((res) => {
       this.user = res;
       this.userBookIds = res.books.map((item: any) => item.bookId);
-      console.log(res);
     });
   }
   addBook(bookId: string, event: Event) {
     this.userService
       .addUserBook(bookId, this.token)
-      .subscribe((res) => console.log(res));
-    this.bookService.updateBooks();
+      .subscribe((res) => this.bookService.updateBooks());
     event.stopPropagation();
   }
   bookExist() {

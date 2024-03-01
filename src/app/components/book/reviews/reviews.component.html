@@ -1,23 +1,23 @@
-
 <div class="container">
   <div class="row">
-    
+
     <div class="col-md-3">
       <div>
-        <img [src]="myreview.author?.image"
-          class="rounded-circle img-fluid shadow-1" alt="User Image" width="130" height="130" />
+        <img height="75px" width="75px"
+          [src]="myreview.author?.image != 'null' ? myreview.author?.image:'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'"
+          class="rounded-circle object-fit-contain" alt="Avatar" />
       </div>
     </div>
 
     <div class="col-md-9">
       <div>
-          <p class="fw-bold lead mb-2"><strong>{{myreview.author?.firstName}} {{myreview.author?.lastName}}</strong></p>
+        <p class="fw-bold lead mb-2"><strong>{{myreview.author?.firstName}} {{myreview.author?.lastName}}</strong></p>
         <p class="text-muted fw-light mb-4">
-         {{myreview.text}}
+          {{myreview.text}}
         </p>
       </div>
     </div>
- <hr>
- 
-</div>
+    <hr>
+
+  </div>
 </div>

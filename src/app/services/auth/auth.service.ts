@@ -22,14 +22,10 @@ export class AuthService {
   }
 
   signup(data: Object): Observable<User> {
-    console.log(data)
-  
     return this.http.post<User>(this.apiUrl, data);
-  } 
+  }
 
   confirm(token: String): Observable<{ token: string }> {
     return this.http.get<{ token: string }>(`${this.apiUrl}/confirm/${token}`);
   }
-
-  
 }

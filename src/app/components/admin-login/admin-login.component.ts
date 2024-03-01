@@ -39,10 +39,16 @@ export class AdminLoginComponent {
   handleFormSubmit() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
-        next: (data) => {
+        next: (data:any) => {
           if (data.token) {
             this.tokenService.setToken(data.token);
             this.router.navigate(['/']);
+          }else{
+            Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: data.message,
+            });
           }
         },
         error: (err) => {

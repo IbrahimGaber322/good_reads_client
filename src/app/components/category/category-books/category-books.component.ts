@@ -22,7 +22,6 @@ export class CategoryBooksComponent {
     const id = this.activeroute.snapshot.params['id'];
     this.bookRequests.getAllBooks(1, 10, { category: id }).subscribe((res) => {
       this.categoryBooks = res.books;
-      console.log(res.books);
     });
   }
 }
