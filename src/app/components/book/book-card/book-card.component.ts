@@ -29,7 +29,6 @@ export class BookCardComponent {
       this.tokenService.authToken$.subscribe((token) => (this.token = token));
     }
     this.getuser();
-    console.log("input book in book card:", this.mybook)
   }
 
   redirctToDetails(id: string) {

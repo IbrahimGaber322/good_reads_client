@@ -52,7 +52,6 @@ export class UserService {
       params = { ...params, limit: limit.toString() };
     }
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
-    console.log(params);
     return this.http.get<{ books: Book[]; booksCount: number }>(
       `${this.apiUrl}/books`,
       { headers, params }
@@ -78,6 +77,7 @@ export class UserService {
       { headers }
     );
   }
+  
   confirmUser(token: string | null) {
     return this.http.get(`${this.apiUrl}/confirm/${token}`);
   }

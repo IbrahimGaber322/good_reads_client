@@ -1,25 +1,38 @@
 <section class="dark">
-	<div class="container py-4">
-<section class="light">
-	<div class="container py-2 mt-5">
-		<article class="postcard light green">
-			
-				<img class="postcard__img" [src]="bookDetails.image" alt="Image Title" />
-               
-                  
-			 <div class="postcard__text t-dark">
-				 <h1 class="postcard__title green">{{bookDetails.name}}</h1>
-				 <div class="postcard__bar"></div>
-                <div class="postcard__txt">{{bookDetails.description}}</div>
-                <p class="postcard__author">By: <a [routerLink]="['/authors', bookDetails.author._id]">{{bookDetails.author.firstName}} {{bookDetails.author.lastName}}</a></p>
-                <p class="postcard__category"><a [routerLink]="['/categories', bookDetails.category._id]">{{bookDetails.category.name}}</a></p>
+  <div class="container py-4">
+    <section class="light">
+      <div class="container py-2 mt-5">
+        <article class="postcard light green">
+          <img class="postcard__img" [src]="bookDetails?.image" alt="Image Title" />
+          <div class="postcard__text t-dark">
+            <h1 class="postcard__title green">{{bookDetails.name}}</h1>
+            <div class="postcard__bar"></div>
+            <div class="postcard__txt">{{bookDetails.description}}</div>
+            <p class="postcard__author"><strong>By:</strong> <a [routerLink]="['/authors', bookDetails.author._id]">
+                {{bookDetails.author.firstName}} {{bookDetails.author.lastName}}</a></p>
+            <p class="postcard__category"><strong>Category:</strong> <a [routerLink]="['/categories', bookDetails.category._id]">
+                {{bookDetails.category.name}}</a></p>
+            
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-floating">
+                  <textarea class="form-control" placeholder="Add Your Review" id="floatingTextarea"[(ngModel)]="reviewText"></textarea>
+                  <label for="floatingTextarea">Add your review</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-primary"(click)="addReview(bookDetails._id,reviewText)" >Add Review</button>
+              </div>
             </div>
-		</article>
-	</div>
-  
-  <h2>Reviews</h2>
-  <hr />
-  <div *ngFor="let review of bookDetails?.reviews">
-    <app-reviews [myreview]="review"></app-reviews>
+          </div>
+        </article>
+      </div>
+
+      <h2>Reviews</h2>
+      <hr />
+      <div *ngFor="let review of bookDetails?.reviews">
+        <app-reviews [myreview]="review"></app-reviews>
+      </div>
+    </section>
   </div>
-  </section>
+</section>
