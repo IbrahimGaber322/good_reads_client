@@ -2,7 +2,7 @@
   <div class="container py-4">
     <section class="light">
       <div class="container py-2 mt-5">
-        <article class="postcard light green">
+        <article class="postcard light green"  *ngIf="bookDetails">
           <img class="postcard__img" [src]="bookDetails.image" alt="Image Title" />
           <div class="postcard__text t-dark">
             <h1 class="postcard__title green">{{bookDetails.name}}</h1>

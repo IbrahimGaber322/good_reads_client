@@ -3,16 +3,15 @@ import { ReviewsComponent } from './../reviews/reviews.component';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BookService } from '../../../services/book/book.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Book } from '../../../interfaces/book';
 import { FormsModule, } from '@angular/forms';
-import { UserService } from '../../../services/user/user.service';
 import { ReviewService } from '../../../services/review/review.service';
 
 @Component({
   selector: 'app-book-details',
   standalone: true,
-  imports: [RouterLink,ReviewsComponent,NgFor,FormsModule],
+  imports: [RouterLink,ReviewsComponent,NgFor,FormsModule,NgIf],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.css'
 })
@@ -29,11 +28,10 @@ export class BookDetailsComponent {
         this.tokenService.authToken$.subscribe((token) => (this.token = token));
       }
       const id=this.activeroute.snapshot.params['id']
-      this.bookRequests.getBookDetails(id).subscribe((res)=>{this.bookDetails = res;console.log(res )})
+      this.bookRequests.getBookDetails(id).subscribe((res)=>{this.bookDetails = res;})
     }
     addReview(bookId:string,reviewText:string){
-    console.log(reviewText)
-    console.log(bookId)
-     this.reviewservice.addBookReview(bookId,reviewText,this.token) 
+   
+     this.reviewservice.addBookReview(bookId,reviewText,this.token).subscribe((res)=>console.log(res)) 
   }  
 }

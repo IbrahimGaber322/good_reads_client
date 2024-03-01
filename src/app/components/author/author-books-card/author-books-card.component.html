@@ -1,5 +1,5 @@
 
-<div class="container mt-4 border p-4 " >
+<div class="container mt-4 border p-4  cursor-pointer" (click)="redirctTobook(myauthorbook._id)">
     <div class="row">
       <div class="col-md-2">
         <div>
@@ -10,15 +10,17 @@
       <div class="col-md-4 d-flex align-items-center">
         <div class="text-center">
           <p class="fw-bold lead mb-2"><strong>{{myauthorbook.name}}</strong></p>
-          <p>rating.....</p>
+          <div class="star-ratings">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9734;</span>
+          </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="d-flex justify-content-end align-items-center">
-          <select class="form-select">
-            <option selected>Choose...</option>
-            <!-- Add options here -->
-          </select>
         </div>
       </div>
   </div>
