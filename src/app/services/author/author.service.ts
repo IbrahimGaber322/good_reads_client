@@ -13,7 +13,7 @@ export class AuthorService {
   authorUpdated$ = this.authorUpdatedSource.asObservable();
   constructor(private http: HttpClient) {}
 
-  getAuthors(page: number = 1, limit: number = 10, params:any={}) {
+  getAuthors(page: number = 1, limit: number = 10, params: any = {}) {
     if (page !== undefined) {
       params = { ...params, page: page.toString() };
     }
@@ -44,7 +44,7 @@ export class AuthorService {
       headers,
     });
   }
-  deleteAuthor(id: string, token: String) {
+  deleteAuthor(id: string, token: string | null) {
     const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
     return this.http.delete<Author>(`${this.apiUrl}/${id}`, { headers });
   }

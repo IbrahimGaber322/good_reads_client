@@ -5,7 +5,9 @@ import { Category } from '../../../interfaces/category';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BookService } from '../../../services/book/book.service';
 import { TokenService } from '../../../services/token/token.service';
-
+import Swal from 'sweetalert2';
+import { CategoryService } from '../../../services/category/category.service';
+import { AuthorService } from '../../../services/author/author.service';
 @Component({
   selector: 'app-admin-delete',
   standalone: true,
@@ -73,7 +75,9 @@ export class NgbdModalContent {
   close = () => this.activeModal.close('Close click');
   constructor(
     private bookService: BookService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private categoryService: CategoryService,
+    private authorService: AuthorService
   ) {}
 
   ngOnInit() {
@@ -82,9 +86,61 @@ export class NgbdModalContent {
   handleDelete() {
     this.activeModal.close('Close click');
     if (this.type === 'Book') {
-      this.bookService
-        .deleteBook(this.item._id, this.token)
-        .subscribe(() => this.bookService.updateBooks());
+      this.bookService.deleteBook(this.item._id, this.token).subscribe({
+        next: (res) => {
+          this.bookService.updateBooks();
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: `Book ${this.item.name} deleted successfully.`,
+          });
+        },
+        error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: err.error.message,
+          });
+        },
+      });
+    } else if (this.type === 'Category') {
+      this.categoryService.deleteCategory(this.item._id, this.token).subscribe({
+        next: (res: any) => {
+          this.categoryService.updateCategories();
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: `Category ${this.item.name} deleted successfully.`,
+          });
+        },
+        error: (err: any) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: err.error.message,
+          });
+        },
+      });
+    } else if (this.type === 'Author') {
+      this.authorService.deleteAuthor(this.item._id, this.token).subscribe({
+        next: (res) => {
+          this.authorService.updateAuthors();
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: `Author ${
+              this.item.firstName + ' ' + this.item.lastName
+            } deleted successfully.`,
+          });
+        },
+        error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: err.error.message,
+          });
+        },
+      });
     }
   }
 }

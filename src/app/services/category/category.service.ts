@@ -29,7 +29,7 @@ export class CategoryService {
     });
   }
 
-  getCategories(page: number = 1, limit: number = 10, params:any={}) {
+  getCategories(page: number = 1, limit: number = 10, params: any = {}) {
     if (page !== undefined) {
       params = { ...params, page: page.toString() };
     }
@@ -45,5 +45,10 @@ export class CategoryService {
   }
   getCategoryDetails(id: string) {
     return this.http.get<Category>(`${this.apiUrl}/${id}`);
+  }
+
+  deleteCategory(id: string, token: string | null) {
+    const headers = new HttpHeaders({ authorization: `Bearer ${token}` });
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers });
   }
 }
