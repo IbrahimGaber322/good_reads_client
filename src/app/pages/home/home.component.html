@@ -35,8 +35,8 @@
             <img [src]="book.image" class="img-fluid img-thumbnail" [alt]="book.name+'.img'"
               style="max-width: 200px; max-height: 200px;">
           </td>
-          <td>{{ book?.name}}</td>
-          <td>{{book?.author?.firstName + " " + book?.author?.lastName}}</td>
+          <td (click)="goToBookDetails(book)" style="cursor: pointer;">{{ book?.name}}</td>
+          <td  (click)="goToAuthorDetails(book.author._id)" style="cursor: pointer;" >{{book?.author?.firstName + " " + book?.author?.lastName}}</td>
           <td>
             <div class="star-ratings">
               <div class="star-ratings">

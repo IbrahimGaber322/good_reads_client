@@ -1,3 +1,4 @@
+import { Router, RouterLink } from '@angular/router';
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { UserService } from '../../services/user/user.service';
@@ -14,7 +15,7 @@ import { LoggedOutHomeComponent } from '../../components/logged-out-home/logged-
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, NgFor, FormsModule, NgxPaginationModule, LoggedOutHomeComponent],
+  imports: [RouterLink,NavbarComponent, NgFor, FormsModule, NgxPaginationModule, LoggedOutHomeComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -36,15 +37,17 @@ export class HomeComponent {
   constructor(
     private userService: UserService,
     private tokenService: TokenService,
-    private bookService: BookService
-  ) {}
+    private bookService: BookService,
+    private router:Router
+    ) {}
   ngOnInit() {
     if (typeof localStorage !== 'undefined') {
       this.tokenService.authToken$.subscribe((token) => (this.token = token));
       this.userService.getUser(this.token).subscribe((data) => {
         this.user = data;
       });
-    }
+    
+  }
     this.pagingConfig = {
       itemsPerPage: this.itemsPerPage,
       currentPage: this.currentPage,
@@ -86,5 +89,12 @@ export class HomeComponent {
       .subscribe((res: any) => {
         this.onSelectStat(status);
       });
+  }
+  goToBookDetails(bookId: any) {
+    this.router.navigate(['books', bookId]);
+    console.log(this.userBooks) 
+  }
+  goToAuthorDetails(authorId: string) {
+    this.router.navigate(['authors', authorId]);
   }
 }
