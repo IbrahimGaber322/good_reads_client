@@ -38,7 +38,7 @@ import { BookService } from '../../services/book/book.service';
 export class LoggedOutHomeComponent {
   submitted: boolean = false;
   showLogin: boolean = false;
-  books!: Book[];
+  books: Book[] = [];
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -46,11 +46,9 @@ export class LoggedOutHomeComponent {
   ) {}
 
   ngOnInit() {
-    this.bookService
-      .getAllBooks(1, 3)
-      .subscribe({
-        next: (res) => (this.books = res.books),
-        error: console.log,
-      });
+    this.bookService.getAllBooks(1, 3).subscribe({
+      next: (res) => (this.books = res.books),
+      error: console.log,
+    });
   }
 }
