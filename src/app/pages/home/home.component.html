@@ -35,23 +35,15 @@
             <img [src]="book.image" class="img-fluid img-thumbnail" [alt]="book.name+'.img'"
               style="max-width: 200px; max-height: 200px;">
           </td>
-          <td (click)="goToBookDetails(book)" style="cursor: pointer;">{{ book?.name}}</td>
+          <td (click)="goToBookDetails(book._id)" style="cursor: pointer;">{{ book?.name}}</td>
           <td  (click)="goToAuthorDetails(book.author._id)" style="cursor: pointer;" >{{book?.author?.firstName + " " + book?.author?.lastName}}</td>
           <td>
-            <div class="star-ratings">
-              <div class="star-ratings">
-                <span class="star">&#9733;</span>
-                <span class="star">&#9733;</span>
-                <span class="star">&#9733;</span>
-                <span class="star">&#9733;</span>
-                <span class="star">&#9734;</span>
-              </div>
-            </div>
+            <ngb-rating (rateChange)="addRating($event, book._id)" [max]="5" [rate]="calcAvgRating(book.rating)" (hover)="hovered = $event" (leave)="hovered = 0" [readonly]="false" />
           </td>
 
           <td>
             <select class="form-select" [(ngModel)]="book.shelve"
-              (ngModelChange)="updateBookStatus(book._id, book.shelve)">
+              (ngModelChange)="updateBookStatus(book.shelveId, book.shelve)">
               <option value="{{book.shelve}}" disabled selected>{{book.shelve}}</option>
               <option value="Read">Read</option>
               <option value="Currently Reading">Currently Reading</option>

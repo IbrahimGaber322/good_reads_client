@@ -7,11 +7,11 @@ import { TokenService } from '../../services/token/token.service';
 import { FormGroup, FormsModule, NgModel } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { BookService } from '../../services/book/book.service';
-import { Book } from '../../interfaces/book';
+import { Book, Rating } from '../../interfaces/book';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PagingConfig } from '../../interfaces/paging-config';
 import { LoggedOutHomeComponent } from '../../components/logged-out-home/logged-out-home.component';
-
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -22,6 +22,7 @@ import { LoggedOutHomeComponent } from '../../components/logged-out-home/logged-
     FormsModule,
     NgxPaginationModule,
     LoggedOutHomeComponent,
+    NgbRatingModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -30,12 +31,29 @@ export class HomeComponent {
   activeStatus: 'All' | 'Want to read' | 'Read' | 'Currently Reading' = 'All';
   user: User | null = null;
   token: string | null = null;
-  userBooks: Book[] = [];
+  userBooks: any[] = [];
   booksCount!: number;
 
   pagingConfig: PagingConfig = {} as PagingConfig;
   currentPage: number = 1;
   itemsPerPage: number = 10;
+
+  /* rating  */
+  selected = 0;
+	hovered = 0;
+  /*        */
+
+  calcAvgRating = (ratings:Rating[]) =>{
+     const sum = ratings.reduce((total, rating)=> total+rating.rating, 0);
+     return sum/ratings.length || 1;
+  }
+
+  addRating(rating:number, bookId:string){
+    this.bookService.addRating(rating, this.token , bookId).subscribe({
+      next: console.log,
+      error: console.log
+    })
+  }
 
   onTableDataChange(event: any) {
     this.pagingConfig.currentPage = event;
@@ -73,7 +91,7 @@ export class HomeComponent {
         this.userBooks = data.books.map((book: any) => ({
           ...book.bookId,
           shelve: book.shelve,
-          _id: book._id,
+          shelveId: book._id,
         }));
         this.booksCount = data.booksCount;
         if (params.shelve) {
